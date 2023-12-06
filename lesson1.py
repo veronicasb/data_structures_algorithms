@@ -1,3 +1,5 @@
+from jovian.pythondsa import evaluate_test_cases
+
 # Binary Search, Linked Lists, Complexity Analysis
 
 '''
@@ -41,13 +43,28 @@ Input and output allows us to create the signature of our function:
 of cards, num is the first element in cards, num is the last element in cards, cards contains only num as an element, cards does 
 not contain num, cards is an empty list, cards contains repeating numbers, or num occurs more than once in cards.
 
+3. Aim for correctness, then efficiency. Checking all possible answers to find the simplest or most obvious answer is called the
+brute force solution. In this case, our brute force solution is flipping over every card until the number is found. 
+- create a variable with a value of 0
+- check if the number at index of variable in cards is our number
+- if yes, the variable is the answer and can be returned
+- if no, increment the variable by 1 and repeat the process until the end of the cards list
+- if number is not found, return -1
+
+Basically a loop described in words. Also an example of a linear search algorithm.
+An algorithm is basically a list of statements that can be converted into code.
+
+4. see below
 
 '''
+
+
 ###
 # Step 1:
 ###
 def locate_cards(cards, num):
     pass
+
 
 ###
 # Step 2:
@@ -73,7 +90,6 @@ test_case = {
 # to test
 # remember that ** unpacks keyword arguments (kwargs)
 locate_cards(**test_case['input']) == test_case['output']
-
 
 #
 # create test cases for every possibility listed in step 2 above
@@ -152,3 +168,43 @@ tests.append({
 # a good number of test cases to produce is 3-5
 # with lots of practice, you should be able to complete step 1 & 2 in 2-3 minutes
 print(tests)
+
+
+###
+# Step 3 - see above
+###
+
+
+###
+# Step 4 - implement solution and test it using examples
+###
+
+# start with function signature produced in step 1
+def locate_card(cards, num):
+    # create variable with value of 0
+    position = 0
+
+    # set loop
+    while True:
+
+        # check if element at position matches num
+        if cards[position] == num:
+
+            # if yes, return position
+            return position
+        
+        # increment position
+        position += 1
+
+        # check for end of cards list
+        if position == len(cards):
+
+            # number not found, return -1
+            return -1
+        
+# test function using test cases produced in step 2
+result = locate_card(tests[0]['input']['cards'], tests[0]['input']['num'])
+print(result)
+print(result == tests[0]['output'])
+
+evaluate_test_cases(locate_card, tests)
