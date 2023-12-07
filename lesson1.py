@@ -184,8 +184,14 @@ def locate_card(cards, num):
     # create variable with value of 0
     position = 0
 
+    # print details to confirm - this is called logging
+    # print("cards:", cards)
+    # print("num:", num)
+
     # set loop
-    while True:
+    while position < len(cards):
+
+        # print("position:", position)
 
         # check if element at position matches num
         if cards[position] == num:
@@ -196,11 +202,11 @@ def locate_card(cards, num):
         # increment position
         position += 1
 
-        # check for end of cards list
-        if position == len(cards):
+        # check for end of cards list (solution before implementing empty list check)
+        # if position == len(cards):
 
-            # number not found, return -1
-            return -1
+    # number not found, return -1
+    return -1
         
 # test function using test cases produced in step 2
 result = locate_card(tests[0]['input']['cards'], tests[0]['input']['num'])
@@ -208,3 +214,27 @@ print(result)
 print(result == tests[0]['output'])
 
 evaluate_test_cases(locate_card, tests)
+
+# code with the assumption that your code will be wrong
+
+cards6 = tests[6]['input']['cards']
+query6 = tests[6]['input']['num']
+locate_cards(cards6, query6)
+
+# we see that the issue is that the cards list is empty
+# print statements are a more effective way to debug
+
+evaluate_test_cases(locate_card, tests)
+
+# everytime you make changes to code, you want to test all cases again
+
+'''
+in real interviews, it's best to skip implementing and testing brute force solutions
+because it's easy to determine its complexity in plain english. However, brute force solutions
+are best for practice/study - in case youre not able to figure out the optimal solution, you can still
+implement the brute force solution, which is acceptable
+'''
+
+###
+# Step 5
+###
