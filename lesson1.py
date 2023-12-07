@@ -56,6 +56,19 @@ An algorithm is basically a list of statements that can be converted into code.
 
 4. see below
 
+5. complexity - a measure of the amount of time and/or space an algorithm requires; complexity typically 
+refers to the worst-case complexity
+
+time complexity (running time) for linear search is cN for some fixed constant c that depends on number of operations 
+performed in each iteration and time taken to execute a statement. 
+
+space complexity for linear search is some constant c'(independent of N) since we only need a single position variable that occupies constant
+space in computer's RAM
+
+Big O Notation - the way complexity is expressed (Big O Notation is the expression of complexity; they refer to the same thing)
+
+time complexity of linear search = O(N); space complexity of linear search = O(1)
+
 '''
 
 
