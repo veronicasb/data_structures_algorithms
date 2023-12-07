@@ -21,7 +21,8 @@ STRATEGY
 3. Brainstorm a solution for the problem in plain english
 4. Implement solution and text example inputs. Fix bugs
 5. Analyze complexity, identify inefficiencies. 
-6. Apply technique to overcome inefficiencies - this is where DSA becomes significant. Repeat 3-6
+6. Apply technique to overcome inefficiencies - this is where DSA becomes significant. 
+Repeat 3-6
 
 '''
 
@@ -39,9 +40,11 @@ the index of the card to be determined).
 
 Input and output allows us to create the signature of our function:
 
+
 2. Example inputs and outputs => test cases. Possible cases to consider when testing: num occurs somewhere in the middle
 of cards, num is the first element in cards, num is the last element in cards, cards contains only num as an element, cards does 
 not contain num, cards is an empty list, cards contains repeating numbers, or num occurs more than once in cards.
+
 
 3. Aim for correctness, then efficiency. Checking all possible answers to find the simplest or most obvious answer is called the
 brute force solution. In this case, our brute force solution is flipping over every card until the number is found. 
@@ -54,7 +57,9 @@ brute force solution. In this case, our brute force solution is flipping over ev
 Basically a loop described in words. Also an example of a linear search algorithm.
 An algorithm is basically a list of statements that can be converted into code.
 
+
 4. see below
+
 
 5. complexity - a measure of the amount of time and/or space an algorithm requires; complexity typically 
 refers to the worst-case complexity
@@ -69,6 +74,17 @@ Big O Notation - the way complexity is expressed (Big O Notation is the expressi
 
 time complexity of linear search = O(N); space complexity of linear search = O(1)
 
+
+6. by each going over each card one at a time, we arent utilizing the fact that it's sorted. Our next best bet would be to start in the middle 
+and take advantage of the fact that the cards are sorted. Depending on our number, we can then focus on the lower half or the upper half of 
+the deck, then repeat the process. This is binary search.
+
+7. (jump back to step 3) binary search solution (in plain english):
+- find the element in the middle of the list
+- if it matches our number, return the middle position as the answer
+- if it is less than our number, binary search the first half of the list
+- if it is greater than our number, binary search the second half of the list
+- if no more elements remain, return -1
 '''
 
 
@@ -249,5 +265,17 @@ implement the brute force solution, which is acceptable
 '''
 
 ###
-# Step 5
+# Step 5 - see above
 ###
+
+
+###
+# Step 6 - see above
+###
+
+
+###
+# Step 7 (jump back to step 3)
+###
+
+
