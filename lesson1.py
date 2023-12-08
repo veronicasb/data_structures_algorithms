@@ -209,6 +209,8 @@ print(tests)
 ###
 
 # start with function signature produced in step 1
+
+'''
 def locate_card(cards, num):
     # create variable with value of 0
     position = 0
@@ -236,24 +238,34 @@ def locate_card(cards, num):
 
     # number not found, return -1
     return -1
-        
+'''
+
 # test function using test cases produced in step 2
+
+'''
 result = locate_card(tests[0]['input']['cards'], tests[0]['input']['num'])
 print(result)
 print(result == tests[0]['output'])
 
 evaluate_test_cases(locate_card, tests)
 
+'''
+
 # code with the assumption that your code will be wrong
 
+'''
 cards6 = tests[6]['input']['cards']
 query6 = tests[6]['input']['num']
 locate_cards(cards6, query6)
 
+'''
+
 # we see that the issue is that the cards list is empty
 # print statements are a more effective way to debug
 
+'''
 evaluate_test_cases(locate_card, tests)
+'''
 
 # everytime you make changes to code, you want to test all cases again
 
@@ -275,7 +287,77 @@ implement the brute force solution, which is acceptable
 
 
 ###
-# Step 7 (jump back to step 3)
+# Step 7 (jump back to step 3) - implement solution from previous step
 ###
 
+def test_location(cards, num, mid):
+    mid_number = cards[mid]
+    print("mid:", mid, ", mid_number:", mid_number)
+    # if middle number card is equal to our number...
+    if mid_number == num:
+        # ... check if the number card before it is still within range and equal to our number...
+        if mid - 1 >= 0 and cards[mid-1] == num:
+            # ... if it is, return left
+            return "left"
+        else:
+            # ... if it isnt, return found
+            return "found"
+    # otherwise, if middle number card is less than the value of our number...
+    elif mid_number < num:
+        # ... return left
+        return "left"
+    # otherwise, return right
+    else:
+        return "right"
+    
+def locate_card(cards, num):
+    low, high = 0, len(cards) - 1
 
+    while low <= high:
+        middle = (high + low) // 2
+        mid_card = cards[middle]
+
+        print("lo:", low, ", hi:", high, ", mid:", middle, ", mid_number:", mid_card)
+        
+        if mid_card == num:
+            return middle
+        elif mid_card < num:
+            high = middle - 1
+        elif mid_card > num:
+            low = middle + 1
+
+    return -1
+
+# testing will show issues with cards lists that have repeating elements
+# we can fix this by creating a helper function test_location()
+# rule of thumb: functions must be 10 lines of code or less
+evaluate_test_cases(locate_card, tests)
+
+# generic algorithm for binary search
+def binary_search(low, high, condition):
+    while low <= high:
+        middle = (low + high) // 2
+        result = condition(middle)
+        if result == "found":
+            return middle
+        elif result == "left":
+            high = middle - 1
+        else:
+            low = middle + 1
+    return -1
+
+# take generic algorith and re-write our function
+# a function inside of a function is called "function closure"
+def locate_card(cards, num):
+    
+    def condition(mid):
+        if cards[mid] == num:
+            if mid > 0 and cards[mid - 1] == num:
+                return "left"
+            else:
+                return "found"
+        elif cards[mid] < num:
+            return "left"
+        else:
+            return "right"
+    return binary_search(0, len(cards) - 1, condition)
