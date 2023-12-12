@@ -127,4 +127,53 @@ class UserDatabase:
     def list_all(self):
         pass
 
+
+###
+# Step 2
+###
+
 # It's good practice to list out method signatures before implementation
+
+valorie = User("valorie", "Valorie Kuhens", "vk@gmail.com")
+jazmyne = User("jazmyne", "Jazmyne Daniels", "jd@gmail.com")
+kalin = User("kalin", "Kalin Denton", "kd@gmail.com")
+robin = User("robin", "Robin Sands", "rs@gmail.com")
+monica = User("monica", "Monica Burgess", "mb@gmail.com")
+lexi = User("lexi", "Lexi Grant", "lg@gmail.com")
+jose = User("jose", "Jose Valasquez", "jv@gmail.com")
+
+users = [valorie, jazmyne, kalin, robin, monica, lexi, jose]
+
+print(kalin)
+
+print(users)
+
+'''
+
+POTENTIAL SCENARIOS (for each operation)
+
+1. Insert
+- insert into an empty database
+- insert a user with a username that already exists
+- insert a user with a username that doesnt exist
+- insert a user with an email that already exists
+
+2. Find
+- find a user by name
+- find a user by username
+- find a user by email
+- find a user that does not exist
+
+3. Update
+- update a user's name
+- update a user's username
+- update a user's email
+- update a user that does not exist
+
+4. List All
+- list all users by username
+- list all users by name
+- list all users by email
+- list all from an empty database
+
+'''
