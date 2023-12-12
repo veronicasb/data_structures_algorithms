@@ -1,5 +1,19 @@
 '''
 
+METHOD
+
+1. State the problem clearly and idenitfy output and inputs
+2. Come up with example inputs and outputs and try to cover all edge cases
+3. Come up with a correct solution in plain English
+4. Implement the solution and test it using example inputs. Fix any bugs
+5. Analyze the algorithm's complexity and identify inefficiencies
+6. Apply the right techniques to overcome inefficiencies. Then, repeat steps 3-6
+
+'''
+
+
+'''
+
 PROBLEM
 
 Develop a fast in-memory data structure to manage profile information (username, name, email) for 100 
@@ -13,18 +27,6 @@ You can assume all usernames are unique
 
 '''
 
-'''
-
-METHOD
-
-1. State the problem clearly and idenitfy output and inputs
-2. Come up with example inputs and outputs and try to cover all edge cases
-3. Come up with a correct solution in plain English
-4. Implement the solution and test it using example inputs. Fix any bugs
-5. Analyze the algorithm's complexity and identify inefficiencies
-6. Apply the right techniques to overcome inefficiencies. Then, repeat steps 3-6
-
-'''
 
 ###
 # Step 1
@@ -58,9 +60,9 @@ class User:
 user1 = User()
 print(type(user1))
 
-
 # Add constructor method to classes to store attributes or properties
 # Constructor methods are special funtions that create an instance of a class.
+'''
 class User:
     # constructor method is essential
     def __init__(self, name, username, email):
@@ -71,9 +73,10 @@ class User:
 
 user1 = User("Kalin Denton", "Kalin", "bababa@gmail.com")
 print(user1.name)
-
+'''
 
 # Add custom method to class
+'''
 class User:
     def __init__(self, name, username, email):
         self.name = name
@@ -86,7 +89,7 @@ class User:
 
 user2 = User("Shiela Socorro", "Shiela", "radarada@gmail.com")
 user2.introduce_yourself("Kalin")
-
+'''
 
 # remove any print statements and add helper methods
 # these methods are used to create a string representation of our object
@@ -114,6 +117,7 @@ __str__() is more human/user-friendly and used for logging reasons.
 '''
 
 # Create a class for our output
+'''
 class UserDatabase:
     def insert(self, user):
         pass
@@ -127,6 +131,7 @@ class UserDatabase:
     def list_all(self):
         pass
 
+'''
 
 ###
 # Step 2
@@ -134,19 +139,15 @@ class UserDatabase:
 
 # It's good practice to list out method signatures before implementation
 
-valorie = User("valorie", "Valorie Kuhens", "vk@gmail.com")
-jazmyne = User("jazmyne", "Jazmyne Daniels", "jd@gmail.com")
-kalin = User("kalin", "Kalin Denton", "kd@gmail.com")
-robin = User("robin", "Robin Sands", "rs@gmail.com")
-monica = User("monica", "Monica Burgess", "mb@gmail.com")
-lexi = User("lexi", "Lexi Grant", "lg@gmail.com")
-jose = User("jose", "Jose Valasquez", "jv@gmail.com")
+valorie = User("Valorie Kuhens", "valorie", "vk@gmail.com")
+jazmyne = User("Jazmyne Daniels", "jazmyne", "jd@gmail.com")
+kalin = User("Kalin Denton", "kalin", "kd@gmail.com")
+robin = User("Robin Sands", "robin", "rs@gmail.com")
+monica = User("Monica Burgess", "monica", "mb@gmail.com")
+lexi = User("Lexi Grant", "lexi", "lg@gmail.com")
+jose = User("Jose Valasquez", "jose", "jv@gmail.com")
 
 users = [valorie, jazmyne, kalin, robin, monica, lexi, jose]
-
-print(kalin)
-
-print(users)
 
 '''
 
@@ -202,4 +203,80 @@ and update the details
 
 4. List: return the list of all User objects
 
+- Note: strings can be compared like integers
+
 '''
+
+
+###
+# Step 4
+###
+
+class UserDatabase:
+    def __init__(self):
+        # a call to this class takes no arguments
+        # instantiating it will create an empty list for new users
+        self.users = []
+
+    def insert(self, user):
+        # create a starting position at 0
+        i = 0
+        # iterate through all users
+        while i < len(self.users):
+            # Find the first username greater than the new user's username
+            # letters that come before a letter are "less than"
+            if self.users[i].username > user.username:
+                # once we find the username that we must insert in front of, break out of while loop
+                break
+            # incrememt position by 1 until we find the username we must insert in front of
+            i += 1
+        # once we find the username that we must insert in front of, insert it
+        self.users.insert(i, user)
+
+    def find(self, username):
+        # for each user in the users list...
+        for user in self.users:
+            # if the username we're looking for appears...
+            if user.username == username:
+                # return all associated information
+                return user
+            
+    def update(self, user):
+        # make a call to the find method, assign it to variables
+        target = self.find(user.username)
+        target.name, target.email = user.name, user.email
+
+    def list_all(self):
+        return self.users
+
+# We can create a new database of users by instantiating an object of UserDatabase class
+database1 = UserDatabase()
+
+database1.insert(valorie)
+database1.insert(jazmyne)
+database1.insert(kalin)
+
+database1.update(User(username = 'kalin', name = 'Kalin D', email = 'kalind@gmail.com'))
+
+
+# Test potential scenarios
+
+# inserts duplicate usernames
+database1.insert(kalin)
+print(database1.list_all())
+
+# finds by username, returns None by other details and nonexistent users
+print(database1.find('kalin'))
+print(database1.find('Kalin D'))
+print(database1.find('kalind@gmail.com'))
+print(database1.find('veronica'))
+
+# email didnt update, name updated, cant update username, updating a non existent user causes an error
+database1.update(User(username='kalin', name='bababa', email='bababa@gmail.com'))
+# database1.update(User(username='veronica', name='vero', email='vb@gmail.com'))
+print(database1.list_all())
+
+
+###
+# Step 5
+###
