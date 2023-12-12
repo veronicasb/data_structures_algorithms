@@ -177,3 +177,29 @@ POTENTIAL SCENARIOS (for each operation)
 - list all from an empty database
 
 '''
+
+
+###
+# Step 3
+###
+
+'''
+
+SOLUTION IN PLAIN ENGLISH
+
+We store User objects in a list sorted by usernames
+
+The operations can be implemented:
+
+1. Insert: loop through the sorted list of users, then add the new user at the postion
+that keeps the list sorted
+
+2. Find: Loop through the sorted of users, then find the user object with the username 
+matching our query
+
+3. Update: Loop through the sorted list, then find the user object matching the query 
+and update the details
+
+4. List: return the list of all User objects
+
+'''
