@@ -258,7 +258,6 @@ database1.insert(kalin)
 
 database1.update(User(username = 'kalin', name = 'Kalin D', email = 'kalind@gmail.com'))
 
-
 # Test potential scenarios
 
 # inserts duplicate usernames
@@ -280,3 +279,16 @@ print(database1.list_all())
 ###
 # Step 5
 ###
+
+'''
+
+Insert: O(N)
+Find: O(N)
+Update: O(N)
+List: O(1)
+
+We find that to iterate over 100 million users in our database with the structure we've created
+so far, it would take about 10 seconds to simply list all the users, which is slow in today's
+technology.
+
+'''
