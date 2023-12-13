@@ -292,3 +292,130 @@ so far, it would take about 10 seconds to simply list all the users, which is sl
 technology.
 
 '''
+
+
+###
+# Step 6
+###
+
+'''
+
+We can limit number of iterations for common operations (insert, find, and update) by implementing a
+binary tree. A binary tree is made up of nodes with branches that point to up to 2 children nodes.
+Nodes have 0, 1, or 2 children nodes. Nodes without children are sometimes called leaves.
+The single node that begins the tree (at the top) is the root node and it's where operations begin.
+
+We will need key-value pairs for our purposes. Binary trees with kay-value nodes are often referred to as 
+a map or treemap
+
+A Binary Search Tree features left subtrees of any node that are lexicographically smaller than a node's key, while
+the right subtrees of any node are lexicographically greater. It's easy to locate specific keys by traversing
+a single path from the root node.
+
+A balanced tree is a tree that doesnt skew too heavily on either side (the left and right side of the tree arent 
+more than 1 level off).
+
+'''
+
+
+###
+# Creating a binary tree
+###
+
+class TreeNode:
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+
+node0 = TreeNode(3)
+node1 = TreeNode(4)
+node2 = TreeNode(5)
+
+print(type(node0))
+
+node0.left = node1
+node0.right = node2
+tree = node0
+
+node0 = TreeNode(2)
+node1 = TreeNode(3)
+node2 = TreeNode(1)
+node3 = TreeNode(5)
+node4 = TreeNode(3)
+node5 = TreeNode(7)
+node6 = TreeNode(4)
+node7 = TreeNode(6)
+node8 = TreeNode(8)
+
+node0.left = node1
+node0.right = node3
+node1.left = node2
+tree = node0
+node3.left = node4
+node3.right = node5
+node4.right = node6
+node5.left = node7
+node5.right = node8
+
+
+# more efficient way than manually creating a tree:
+tree_tuple = ((1, 3, None), 2, ((None, 3, 4), 5, (6, 7, 8)))
+
+def parse_tuple(data):
+    # print(data)
+    if isinstance(data, tuple) and len(data) == 3:
+        node = TreeNode(data[1])
+        # recursive call to function
+        node.left = parse_tuple(data[0])
+        node.right = parse_tuple(data[2])
+    elif data is None:
+        node = None
+    else:
+        node = TreeNode(data)
+    return node
+
+tree2 = parse_tuple(tree_tuple)
+
+print(tree2.key, tree2.left.key, tree2.right.key)
+
+
+# convert tree back to a tuple
+
+def tree_to_tuple(node):
+    # check if argument is a TreeNode object
+    if isinstance(node, TreeNode):
+        # if the node has no children...
+        if node.left == None and node.right == None:
+            # return the value of that node
+            return node.key
+        # otherwise, return a tuple 
+        return (
+            # every recursive call to this function will return a tuple for as long as
+            # each node passed has children
+            tree_to_tuple(node.left), 
+            node.key, 
+            tree_to_tuple(node.right)
+        )
+    
+print(tree_to_tuple(tree2))
+
+
+# helper function to display keys in a tree
+
+def display_keys(node, space="\t", level=0):
+    if node is None:
+        print(space*level + "x")
+        return
+    
+    if node.left is None and node.right is None:
+        print(space* level + str(node.key))
+        return
+    
+    display_keys(node.right, space, level+1)
+    print(space*level + str(node.key))
+    display_keys(node.left, space, level+1)
+
+display_keys(tree2)
+
+
