@@ -514,3 +514,83 @@ def tree_size(node):
     return 1 + tree_size(node.left) + tree_size(node.right)
 
 print(tree_size(tree2))
+
+
+# Encapsulate the TreeNode class
+
+'''
+Encapsulation is when we contain data and functionality related to that data 
+within the same class
+'''
+
+class TreeNode():
+    def __init__(self, key):
+        self.key, self.left, self.right = key, None, None
+
+    def height(self):
+        if self is None:
+            return 0
+        return 1 + max(TreeNode.height(self.left), TreeNode.height(self.right))
+    
+    def size(self):
+        if self is None:
+            return 0
+        return 1 + TreeNode.size(self.left) + TreeNode.size(self.right)
+    
+    def traverse_in_order(self):
+        if self is None:
+            return []
+        return(TreeNode.traverse_in_order(self.left) + 
+               [self.key] + 
+               TreeNode.traverse_in_order(self.right))
+    
+    def display_keys(self, space="\t", level=0):
+        if self is None:
+            print(space*level + "x")
+            return
+    
+        if self.left is None and self.right is None:
+            print(space* level + str(self.key))
+            return
+    
+        TreeNode.display_keys(self.right, space, level+1)
+        print(space*level + str(self.key))
+        TreeNode.display_keys(self.left, space, level+1)
+
+    def to_tuple(self):
+        if self is None:
+            return None
+        if self.left is None and self.right is None:
+            return self.key
+        return (
+            TreeNode.to_tuple(self.left), 
+            self.key, 
+            TreeNode.to_tuple(self.right)
+        )
+    
+    def __repr__(self):
+        return f"BinaryTree {self.to_tuple()}"
+    
+    def __str__(self):
+        return f"BinaryTree {self.to_tuple()}"
+    
+    @staticmethod
+    def parse_tuple(data):
+        if data is None:
+            node = None
+        elif isinstance(data, tuple) and len(data) == 3:
+            node = TreeNode(data[1])
+            node.left = TreeNode.parse_tuple(data[0])
+            node.right = TreeNode.parse_tuple(data[2])
+        else:
+            node = TreeNode(data)
+        return node
+    
+practice_tuple = ((4, 7, (None, 8, 9)), 12, ((6, 10, 11), 13, (10, 15, 18)))
+tree = TreeNode.parse_tuple(practice_tuple)
+print(tree)
+tree.display_keys('    ')
+print(tree.height())
+print(tree.size())
+print(tree.traverse_in_order())
+print(tree.to_tuple())
