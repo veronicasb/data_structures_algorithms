@@ -419,3 +419,81 @@ def display_keys(node, space="\t", level=0):
 display_keys(tree2)
 
 
+practice_tuple = ((4, 7, (None, 8, 9)), 12, ((6, 10, 11), 13, (10, 15, 18)))
+practice_tree = parse_tuple(practice_tuple)
+print(practice_tree.key)
+
+display_keys(practice_tree)
+
+print(tree_to_tuple(practice_tree))
+
+
+###
+# Traversing a Binary Tree (very common coding interview material)
+#
+
+'''
+A traversal is the process of visiting every node in a binary tree exactly once.
+Visiting a node entails adding a node's key to a list. 
+
+Inorder traversal: traverse left subtree recursively in order, traverse the current node, then traverse the right subtree recursively in order
+
+Preorder traversal: traverse the current node, traverse the left subtree recursively preorder, then traverse the right subtree recursively preorder
+
+Postorder traversal: traverse left subtree recursively postorder, traverse right subtree recursively post order, then traverse the current node
+'''
+
+
+# A function to perform an inorder traversal of a binary tree
+def traverse_in_order(node):
+    # if node is None, this means we've come across a parent node with no children
+    if node is None:
+        # return an empty list/array
+        return []
+    # recursively move thru nodes along the left of the tree until node is None
+    # add key of current node to list
+    # recursively move thru nodes along the right of the tree until node is None
+    return(traverse_in_order(node.left) + 
+           [node.key] + 
+           traverse_in_order(node.right))
+
+print(traverse_in_order(tree2))
+
+
+# A function to perform a preorder traversal of a binary tree
+def traverse_preorder(node):
+    if node is None:
+        return []
+    return([node.key] + 
+           traverse_preorder(node.left) + 
+           traverse_preorder(node.right))
+
+print(traverse_preorder(tree2))
+
+
+# From leetcode.com (preorder)
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def preorderTraversal(self, root):
+        if root is None:
+            return []
+        return([root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right))
+    
+# recursive calls to methods must be called via "self"
+    
+
+# A function to perform a postorder traversal of a binary tree
+def traverse_postorder(node):
+    if node is None:
+        return []
+    return (traverse_postorder(node.left) + 
+            traverse_postorder(node.right) + 
+            [node.key])
+
+print(traverse_postorder(tree2))
