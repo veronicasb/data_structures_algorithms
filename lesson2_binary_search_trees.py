@@ -1,5 +1,6 @@
 from lesson2_binary_trees import TreeNode
 from lesson2_binary_trees import User
+import random, string
 
 practice_tuple = ((4, 7, (None, 8, 9)), 12, ((6, 10, 11), 13, (10, 15, 18)))
 tree = TreeNode.parse_tuple(practice_tuple)
@@ -296,3 +297,110 @@ so you wont need a large machine or too many machines).
 To speed up insertions, we could balance a BST every 1000 insertions (every 1000th insertions 
 would take a few seconds) or balance every hour.
 '''
+
+
+'''
+A PYTHON-FRIENDLY TREEMAP
+
+The ultimate solution to our original problem.
+
+Remember that a map/treemap is a binary tree containing key-value pairs.
+'''
+
+# in place of our original UserDatabase class
+class TreeMap():
+    # internally stores a balanced binary search tree
+    def __init__(self):
+        self.root = None
+
+    def __setitem__(self, key, value):
+        # a combination of insert and update
+        node = find(self.root, key)
+        counter = 0
+        if not node:
+            self.root = insert(self.root, key, value)
+            counter += 1
+            if counter == 1000:
+                self.root = balance_bst(self.root)
+                counter = 0
+        else:
+            update(self.root, key, value)
+
+    def __getitem__(self, key):
+        # replacement to find operation
+        node = find(self.root, key)
+        return node.value if node else None
+    
+    def __iter__(self):
+        # replacement for list_all function
+        # round brackets instead of square brackets means we've created a generator
+        return (x for x in list_all(self.root))
+    
+    '''
+    GENERATORS REFRESHER
+
+    generators - are functions that return an object that can be iterated over
+    special because they generate elements in object "lazily" (generate items one at a time and only when you ask for it )
+    memory efficient, good for large data sets
+
+    yield keyword
+    def mygenerator():
+        yield 1
+        yield 2
+        yield 3
+    '''
+    
+    def __len__(self):
+        return TreeNode.size(self.root)
+    
+    def display(self):
+        return TreeNode.display_keys(self.root)
+    
+    '''
+    We've set special methods in our class that allow us to use indexing notation instead
+    of calling methods using dot notation
+    '''
+    
+treemap = TreeMap()
+
+for user in users:
+    treemap[user.username] = user.username
+
+treemap.display()
+
+veronica = User(username='veronica', name='Veronica Burgess', email='vb@gmail.com')
+
+treemap['veronica'] = veronica
+
+treemap.display()
+
+# __len__ allows us to use len function on class object
+print(len(treemap))
+
+# __iter__ allows us to iterate over class object
+for key, value in treemap:
+    print(key, value)
+
+
+'''
+
+When creating solutions, make implementation as Python-friendly/intuitive as possible
+AKA "encapsulation"
+'''
+
+
+# Test lots of users
+def random_user():
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(5))
+
+user_count = 0
+while user_count < 2000:
+    rand_username = random_user()
+    rand_name = f'{rand_username} {random_user()}'
+    rand_email = f'{random_user()}@gmail.com'
+    new_user = User(username=rand_username, name=rand_name, email=rand_email)
+    treemap[rand_username] = new_user
+    user_count += 1
+
+treemap.display()
