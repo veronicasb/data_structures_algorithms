@@ -267,3 +267,32 @@ TreeNode.display_keys(unbalanced_tree)
 unbalanced_tree_balanced = balance_bst(unbalanced_tree)
 
 TreeNode.display_keys(unbalanced_tree_balanced)
+
+
+'''
+After every insertion, balance the tree
+
+Complexity of operations on a balanced BST:
+
+- Insert: O(logN) + O(N) = O(N)
+-- If a tree is balanced, its height is O(logN). For insertion, you may have to traverse a path from the root to a leaf.
+-- At max, the length of that path is the height of the tree or O(logN)
+-- If we balance a tree after every insertion, that's an additional O(N)
+-- LogN becomes much smaller than N as N grows
+
+- Find: O(logN)
+- Update: O(logN)
+- List all: O(N)
+
+We will find that the log of 100 mil [O(logN)] is around 26, which means it would only take
+26 operations to find or update a node in a BST.
+
+O(N), the speed of our original solution, would take 100 mil operations.
+
+All of this amounts to 19 milliseconds vs. 10 seconds, so O(logN) is 300,000x faster than O(N), which 
+ends up being a significantly better user experience and cost-effective (CPU is business for less time 
+so you wont need a large machine or too many machines).
+
+To speed up insertions, we could balance a BST every 1000 insertions (every 1000th insertions 
+would take a few seconds) or balance every hour.
+'''
