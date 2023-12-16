@@ -165,3 +165,105 @@ def list_all(node):
     return list_all(node.left) + [(node.key, node.value)] + list_all(node.right)
 
 print(list_all(tree3))
+
+
+''' 
+CHECK FOR A BALANCED BT
+
+If a tree is balanced, its time complexity of insertion is O(log N), otherwise, worst-case
+complexity, it is O(N).
+'''
+
+def is_balanced(node):
+    # the end condition occurs first
+    if node is None:
+        return True, 0
+    # ensure left subtree is balanced
+    balanced_l, height_l = is_balanced(node.left)
+    # ensure right subtree is balanced
+    balanced_r, height_r = is_balanced(node.right)
+    # ensure the height difference between the two isnt more than 1
+    balanced = balanced_l and balanced_r and abs(height_l - height_r) <= 1
+    height = 1 + max(height_l, height_r)
+    return balanced, height
+
+
+'''
+CREATE A BALANCED BST
+
+Use a recursive strategy to turn the middle element into the root node, then
+create left and right subtrees accordingly.
+
+The algorithms closely resembles a binary search.
+
+***Data must be sorted***
+'''
+
+def make_balanced_bst(data, low=0, high=None, parent=None):
+    '''
+    setting our default parameters make's it easier to call this function because our
+    low, high, and parent will generally be the same every time we call this function.
+    But we cant set the low, high, and parent within the function because we are 
+    calling this function recursively.
+    '''
+    if high is None:
+        # high will get set to the number of elements in our data
+        high = len(data) - 1
+    if low > high:
+        # if low is greater than high, this means we're outside the index of our data
+        return None
+    
+    # calculate the middle index of our data
+    middle = (low + high) // 2
+    # set the key-value pair for our root node as the key-value pair at the middle of our data
+    key, value = data[middle]
+
+    # create our root node using the key-value pair from the middle of our data
+    root = BSTNode(key, value)
+    # the parent of our root node will be None by default (root nodes dont have parents because they lead the tree structure)
+    root.parent = parent
+
+    # the left child of our root node will be less than the value of our middle key-value pair from our data (set as our root node)
+    '''
+    we will recursively call our function and pass along the same data, 0 as our low, the index before the middle
+    index of our data, and the root node we just created (containing the key-value pair of the middle our data) as our parent
+    '''
+    root.left = make_balanced_bst(data, low, middle-1, root)
+
+    # the right child of our root node will be greater than the value of our middle key-value pair from our data (set as our root node)
+    '''
+    we will recursively call our function and pass along the same data, the index after the middle index of our data 
+    as our low, the last index of our data as our high (which we set above), and the root node we just 
+    created (containing the key-value pair of the middle our data) as our parent
+    '''
+    root.right = make_balanced_bst(data, middle+1, high, root)
+
+    # our final result will be an entire BST, which is returned as the root node of that structure
+    return root 
+
+user_data = [(user.username, user) for user in users]
+user_data.sort()
+balanced_user_bst = make_balanced_bst(user_data)
+TreeNode.display_keys(balanced_user_bst)
+
+
+'''
+BALANCE AN UNBALANCED BST
+
+first perform an inorder traversal, then create a balanced BST using the above function
+'''
+def balance_bst(node):
+    # in the case of BSTs, list_all is an inorder traversal operation
+    return make_balanced_bst(list_all(node))
+
+# create a heavily skewed BST
+unbalanced_tree = None
+
+for user in users:
+    unbalanced_tree = insert(unbalanced_tree, user.username, user)
+
+TreeNode.display_keys(unbalanced_tree)
+
+unbalanced_tree_balanced = balance_bst(unbalanced_tree)
+
+TreeNode.display_keys(unbalanced_tree_balanced)
