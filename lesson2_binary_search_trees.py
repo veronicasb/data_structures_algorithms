@@ -404,3 +404,62 @@ while user_count < 2000:
     user_count += 1
 
 treemap.display()
+
+
+'''
+SELF-BALANCING BINARY TREES & AVL TREES
+
+A self-balancing binary tree is one that remains balanced after every node insertions. 
+
+An AVL Tree is one form of a self-balancing tree. The way it works: track the "balance factor" 
+(the height difference between the left and right subtrees), then rotate unbalanced subtrees 
+along the path of insertion/deletion.
+
+The "balance factor" of a balanced BST is 0, -1, or 1. When you insert a new node into the BST, 
+it increments (by 1) the balance factor of each node it must "travel over" to get to its position. 
+Anytime a node reaches a balance factor of 2 or -2, the tree must be rotated at that node to balance 
+back out. Negative/positive balance factors represent whether the node is in the left 
+subtree (negative) or the right subtree (positive).
+
+4 scenarios for balancing:
+
+1. Left-Right: [2 rotations] when 3 nodes zigzag left then right (1 <- -2 | 1 -> 0), shift the nodes so 
+that the trio becomes left-aligned (1 <- 0 <- -2), then complete the scenario with a Right-Right rotation. 
+
+2. Right-Left: [2 rotations] when 3 nodes zigzag right then left (2 -> -1 | 0 <- -1), shift the nodes so 
+that the trio becomes right-aligned (2 -> 0 -> -1), then complete the scenario with a Left-Left rotation. 
+
+3. Left-Left: [1 rotation] when 3 nodes are all right-aligned (2 -> 1 -> 0), shift trio to the left (-1) 
+so that the middle node becomes the root. After balancing, balance factor of the trio defaults back 
+to 0 -> 0 -> 0.
+
+4. Right-Right: [1 rotation] when 3 nodes are all left-aligned (0 <- -1 <- -2), shift trio to the right (1) 
+so that middle node becomes root. After balancing, balance factor of trio defaults back to 0 -> 0 -> 0.
+
+
+Complexity: Each rotation takes constant time. At most, log N (height of traversal path) rotations may 
+be required. Insertion and deletion can be performed in O(log N) time. 
+
+'''
+
+# HELPER FUNCTIONS
+
+# Left rotation while preserving BST properties
+
+# Right rotation while preserving BST properties
+
+# At insertions, perform rotation at the proper place
+
+# Track balance factor of each node
+
+
+'''
+SUMMARY
+
+1. We started with a sorted list
+2. We improved upon it by transforming it into a Binary Tree
+3. We improved upon it by transforming it into a Binary Search Tree
+4. Added balancing into the mix
+ 
+Binary trees form the basis of relational databases like MySQL
+''' 
