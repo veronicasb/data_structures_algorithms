@@ -1,4 +1,4 @@
-'''
+"""
 
 METHOD
 
@@ -9,10 +9,10 @@ METHOD
 5. Analyze the algorithm's complexity and identify inefficiencies
 6. Apply the right techniques to overcome inefficiencies. Then, repeat steps 3-6
 
-'''
+"""
 
 
-'''
+"""
 
 PROBLEM
 
@@ -25,14 +25,14 @@ million users. It should allow the following operations to be performed:
 
 You can assume all usernames are unique
 
-'''
+"""
 
 
 ###
 # Step 1
-### 
+###
 
-'''
+"""
 We need to create a data structure that can store 100 million records and perform
 insertion, search, update, and list operations efficiently.
 
@@ -49,7 +49,8 @@ details from doing the following operations:
 - update
 - list_all
 
-'''
+"""
+
 
 # OOP
 # classes are a perfect way to represent a person of some kind
@@ -57,12 +58,13 @@ details from doing the following operations:
 class User:
     pass
 
+
 user1 = User()
 print(type(user1))
 
 # Add constructor method to classes to store attributes or properties
 # Constructor methods are special funtions that create an instance of a class.
-'''
+"""
 class User:
     # constructor method is essential
     def __init__(self, name, username, email):
@@ -73,10 +75,10 @@ class User:
 
 user1 = User("Kalin Denton", "Kalin", "bababa@gmail.com")
 print(user1.name)
-'''
+"""
 
 # Add custom method to class
-'''
+"""
 class User:
     def __init__(self, name, username, email):
         self.name = name
@@ -89,7 +91,8 @@ class User:
 
 user2 = User("Shiela Socorro", "Shiela", "radarada@gmail.com")
 user2.introduce_yourself("Kalin")
-'''
+"""
+
 
 # remove any print statements and add helper methods
 # these methods are used to create a string representation of our object
@@ -101,11 +104,12 @@ class User:
 
     def __repr__(self):
         return f"User (username = '{self.username}', name = '{self.name}', email= '{self.username}')"
-    
+
     def __str__(self):
         return self.__repr__()
-    
-'''
+
+
+"""
 __str__() and __repr__()
 
 These 2 functions return an objects string representation.
@@ -114,10 +118,10 @@ They're different in that __repr__() is intended to hold information about the o
 __repr__() is a developer-friendly string representation of an object, while 
 __str__() is more human/user-friendly and used for logging reasons.
 
-'''
+"""
 
 # Create a class for our output
-'''
+"""
 class UserDatabase:
     def insert(self, user):
         pass
@@ -131,7 +135,7 @@ class UserDatabase:
     def list_all(self):
         pass
 
-'''
+"""
 
 ###
 # Step 2
@@ -149,7 +153,7 @@ jose = User("Jose Valasquez", "jose", "jv@gmail.com")
 
 users = [valorie, jazmyne, kalin, robin, monica, lexi, jose]
 
-'''
+"""
 
 POTENTIAL SCENARIOS (for each operation)
 
@@ -177,14 +181,14 @@ POTENTIAL SCENARIOS (for each operation)
 - list all users by email
 - list all from an empty database
 
-'''
+"""
 
 
 ###
 # Step 3
 ###
 
-'''
+"""
 
 SOLUTION IN PLAIN ENGLISH
 
@@ -205,12 +209,13 @@ and update the details
 
 - Note: strings can be compared like integers
 
-'''
+"""
 
 
 ###
 # Step 4
 ###
+
 
 class UserDatabase:
     def __init__(self):
@@ -240,7 +245,7 @@ class UserDatabase:
             if user.username == username:
                 # return all associated information
                 return user
-            
+
     def update(self, user):
         # make a call to the find method, assign it to variables
         target = self.find(user.username)
@@ -249,6 +254,7 @@ class UserDatabase:
     def list_all(self):
         return self.users
 
+
 # We can create a new database of users by instantiating an object of UserDatabase class
 database1 = UserDatabase()
 
@@ -256,7 +262,7 @@ database1.insert(valorie)
 database1.insert(jazmyne)
 database1.insert(kalin)
 
-database1.update(User(username = 'kalin', name = 'Kalin D', email = 'kalind@gmail.com'))
+database1.update(User(username="kalin", name="Kalin D", email="kalind@gmail.com"))
 
 # Test potential scenarios
 
@@ -265,13 +271,13 @@ database1.insert(kalin)
 print(database1.list_all())
 
 # finds by username, returns None by other details and nonexistent users
-print(database1.find('kalin'))
-print(database1.find('Kalin D'))
-print(database1.find('kalind@gmail.com'))
-print(database1.find('veronica'))
+print(database1.find("kalin"))
+print(database1.find("Kalin D"))
+print(database1.find("kalind@gmail.com"))
+print(database1.find("veronica"))
 
 # email didnt update, name updated, cant update username, updating a non existent user causes an error
-database1.update(User(username='kalin', name='bababa', email='bababa@gmail.com'))
+database1.update(User(username="kalin", name="bababa", email="bababa@gmail.com"))
 # database1.update(User(username='veronica', name='vero', email='vb@gmail.com'))
 print(database1.list_all())
 
@@ -280,7 +286,7 @@ print(database1.list_all())
 # Step 5
 ###
 
-'''
+"""
 
 Insert: O(N)
 Find: O(N)
@@ -291,14 +297,14 @@ We find that to iterate over 100 million users in our database with the structur
 so far, it would take about 10 seconds to simply list all the users, which is slow in today's
 technology.
 
-'''
+"""
 
 
 ###
 # Step 6
 ###
 
-'''
+"""
 
 We can limit number of iterations for common operations (insert, find, and update) by implementing a
 binary tree. A binary tree is made up of nodes with branches that point to up to 2 children nodes.
@@ -315,18 +321,20 @@ a single path from the root node.
 A balanced tree is a tree that doesnt skew too heavily on either side (the left and right side of the tree arent 
 more than 1 level off).
 
-'''
+"""
 
 
 ###
 # Creating a binary tree
 ###
 
+
 class TreeNode:
     def __init__(self, key):
         self.key = key
         self.left = None
         self.right = None
+
 
 node0 = TreeNode(3)
 node1 = TreeNode(4)
@@ -362,6 +370,7 @@ node5.right = node8
 # more efficient way than manually creating a tree:
 tree_tuple = ((1, 3, None), 2, ((None, 3, 4), 5, (6, 7, 8)))
 
+
 def parse_tuple(data):
     # print(data)
     if isinstance(data, tuple) and len(data) == 3:
@@ -375,12 +384,14 @@ def parse_tuple(data):
         node = TreeNode(data)
     return node
 
+
 tree2 = parse_tuple(tree_tuple)
 
 print(tree2.key, tree2.left.key, tree2.right.key)
 
 
 # convert tree back to a tuple
+
 
 def tree_to_tuple(node):
     # check if argument is a TreeNode object
@@ -389,32 +400,35 @@ def tree_to_tuple(node):
         if node.left == None and node.right == None:
             # return the value of that node
             return node.key
-        # otherwise, return a tuple 
+        # otherwise, return a tuple
         return (
             # every recursive call to this function will return a tuple for as long as
             # each node passed has children
-            tree_to_tuple(node.left), 
-            node.key, 
-            tree_to_tuple(node.right)
+            tree_to_tuple(node.left),
+            node.key,
+            tree_to_tuple(node.right),
         )
-    
+
+
 print(tree_to_tuple(tree2))
 
 
 # helper function to display keys in a tree
 
+
 def display_keys(node, space="\t", level=0):
     if node is None:
-        print(space*level + "x")
+        print(space * level + "x")
         return
-    
+
     if node.left is None and node.right is None:
-        print(space* level + str(node.key))
+        print(space * level + str(node.key))
         return
-    
-    display_keys(node.right, space, level+1)
-    print(space*level + str(node.key))
-    display_keys(node.left, space, level+1)
+
+    display_keys(node.right, space, level + 1)
+    print(space * level + str(node.key))
+    display_keys(node.left, space, level + 1)
+
 
 display_keys(tree2)
 
@@ -432,7 +446,7 @@ print(tree_to_tuple(practice_tree))
 # Traversing a Binary Tree (very common coding interview material)
 #
 
-'''
+"""
 A traversal is the process of visiting every node in a binary tree exactly once.
 Visiting a node entails adding a node's key to a list. 
 
@@ -441,7 +455,7 @@ Inorder traversal: traverse left subtree recursively in order, traverse the curr
 Preorder traversal: traverse the current node, traverse the left subtree recursively preorder, then traverse the right subtree recursively preorder
 
 Postorder traversal: traverse left subtree recursively postorder, traverse right subtree recursively post order, then traverse the current node
-'''
+"""
 
 
 # A function to perform an inorder traversal of a binary tree
@@ -453,9 +467,8 @@ def traverse_in_order(node):
     # recursively move thru nodes along the left of the tree until node is None
     # add key of current node to list
     # recursively move thru nodes along the right of the tree until node is None
-    return(traverse_in_order(node.left) + 
-           [node.key] + 
-           traverse_in_order(node.right))
+    return traverse_in_order(node.left) + [node.key] + traverse_in_order(node.right)
+
 
 print(traverse_in_order(tree2))
 
@@ -464,14 +477,14 @@ print(traverse_in_order(tree2))
 def traverse_preorder(node):
     if node is None:
         return []
-    return([node.key] + 
-           traverse_preorder(node.left) + 
-           traverse_preorder(node.right))
+    return [node.key] + traverse_preorder(node.left) + traverse_preorder(node.right)
+
 
 print(traverse_preorder(tree2))
 
 
 # From leetcode.com (preorder)
+
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -483,18 +496,22 @@ class Solution:
     def preorderTraversal(self, root):
         if root is None:
             return []
-        return([root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right))
-    
+        return (
+            [root.val]
+            + self.preorderTraversal(root.left)
+            + self.preorderTraversal(root.right)
+        )
+
+
 # recursive calls to methods must be called via "self"
-    
+
 
 # A function to perform a postorder traversal of a binary tree
 def traverse_postorder(node):
     if node is None:
         return []
-    return (traverse_postorder(node.left) + 
-            traverse_postorder(node.right) + 
-            [node.key])
+    return traverse_postorder(node.left) + traverse_postorder(node.right) + [node.key]
+
 
 print(traverse_postorder(tree2))
 
@@ -505,7 +522,9 @@ def tree_height(node):
         return 0
     return 1 + max(tree_height(node.left), tree_height(node.right))
 
+
 print(tree_height(tree2))
+
 
 # count number of nodes in a binary tree
 def tree_size(node):
@@ -513,17 +532,19 @@ def tree_size(node):
         return 0
     return 1 + tree_size(node.left) + tree_size(node.right)
 
+
 print(tree_size(tree2))
 
 
 # Encapsulate the TreeNode class
 
-'''
+"""
 Encapsulation is when we contain data and functionality related to that data 
 within the same class
-'''
+"""
 
-class TreeNode():
+
+class TreeNode:
     def __init__(self, key):
         self.key, self.left, self.right = key, None, None
 
@@ -531,49 +552,47 @@ class TreeNode():
         if self is None:
             return 0
         return 1 + max(TreeNode.height(self.left), TreeNode.height(self.right))
-    
+
     def size(self):
         if self is None:
             return 0
         return 1 + TreeNode.size(self.left) + TreeNode.size(self.right)
-    
+
     def traverse_in_order(self):
         if self is None:
             return []
-        return(TreeNode.traverse_in_order(self.left) + 
-               [self.key] + 
-               TreeNode.traverse_in_order(self.right))
-    
+        return (
+            TreeNode.traverse_in_order(self.left)
+            + [self.key]
+            + TreeNode.traverse_in_order(self.right)
+        )
+
     def display_keys(self, space="\t", level=0):
         if self is None:
-            print(space*level + "x")
+            print(space * level + "x")
             return
-    
+
         if self.left is None and self.right is None:
-            print(space* level + str(self.key))
+            print(space * level + str(self.key))
             return
-    
-        TreeNode.display_keys(self.right, space, level+1)
-        print(space*level + str(self.key))
-        TreeNode.display_keys(self.left, space, level+1)
+
+        TreeNode.display_keys(self.right, space, level + 1)
+        print(space * level + str(self.key))
+        TreeNode.display_keys(self.left, space, level + 1)
 
     def to_tuple(self):
         if self is None:
             return None
         if self.left is None and self.right is None:
             return self.key
-        return (
-            TreeNode.to_tuple(self.left), 
-            self.key, 
-            TreeNode.to_tuple(self.right)
-        )
-    
+        return (TreeNode.to_tuple(self.left), self.key, TreeNode.to_tuple(self.right))
+
     def __repr__(self):
         return f"BinaryTree {self.to_tuple()}"
-    
+
     def __str__(self):
         return f"BinaryTree {self.to_tuple()}"
-    
+
     @staticmethod
     def parse_tuple(data):
         if data is None:
@@ -585,11 +604,12 @@ class TreeNode():
         else:
             node = TreeNode(data)
         return node
-    
+
+
 practice_tuple = ((4, 7, (None, 8, 9)), 12, ((6, 10, 11), 13, (10, 15, 18)))
 tree = TreeNode.parse_tuple(practice_tuple)
 print(tree)
-tree.display_keys('    ')
+tree.display_keys("    ")
 print(tree.height())
 print(tree.size())
 print(tree.traverse_in_order())

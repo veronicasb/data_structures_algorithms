@@ -1,6 +1,6 @@
 from jovian.pythondsa import evaluate_test_cases
 
-'''
+"""
 
 DSA is crucial because it helps you:
 1. To think about problems systematically
@@ -8,9 +8,9 @@ DSA is crucial because it helps you:
 3. Communicate ideas clearly to colleagues and collaborate
 4. Convert thoughts and ideas into code
 
-'''
+"""
 
-'''
+"""
 
 STRATEGY
 
@@ -22,9 +22,9 @@ STRATEGY
 6. Apply technique to overcome inefficiencies - this is where DSA becomes significant. 
 Repeat 3-6
 
-'''
+"""
 
-'''
+"""
 PROBLEM
 
 Lucy has cards with numbers on them - they are arranged in decreasing order and turned around 
@@ -83,7 +83,7 @@ the deck, then repeat the process. This is binary search.
 - if it is less than our number, binary search the first half of the list
 - if it is greater than our number, binary search the second half of the list
 - if no more elements remain, return -1
-'''
+"""
 
 
 ###
@@ -106,17 +106,11 @@ if result == output:
 
 # alternatively - using dictionaries makes repetitive testing easier
 # input key will contain 1 key for each argument to the function
-test_case = {
-    'input': {
-        'cards': [13, 11, 10, 7, 4, 3, 1, 0],
-        'num': 7
-    },
-    'output': 3
-}
+test_case = {"input": {"cards": [13, 11, 10, 7, 4, 3, 1, 0], "num": 7}, "output": 3}
 
 # to test
 # remember that ** unpacks keyword arguments (kwargs)
-locate_cards(**test_case['input']) == test_case['output']
+locate_cards(**test_case["input"]) == test_case["output"]
 
 #
 # create test cases for every possibility listed in step 2 above
@@ -125,71 +119,25 @@ tests = []
 # append the example we created above
 tests.append(test_case)
 # create a test case for if num occurs in the middle of cards
-tests.append({
-    'input': {
-        'cards': [13, 11, 10, 7, 4, 3, 1, 0],
-        'num': 1
-    },
-    'output': 6
-})
+tests.append({"input": {"cards": [13, 11, 10, 7, 4, 3, 1, 0], "num": 1}, "output": 6})
 # create a test case for if num is the first element in cards
-tests.append({
-    'input': {
-        'cards': [4, 2, 1, -1],
-        'num': 4
-    },
-    'output': 0
-})
+tests.append({"input": {"cards": [4, 2, 1, -1], "num": 4}, "output": 0})
 # create test case for if num is last element in cards
-tests.append({
-    'input': {
-        'cards': [4, 7, 2, -6, 1],
-        'num': 1
-    },
-    'output': 4
-})
+tests.append({"input": {"cards": [4, 7, 2, -6, 1], "num": 1}, "output": 4})
 # create test case for if cards contains only num as element
-tests.append({
-    'input': {
-        'cards': [8],
-        'num': 8
-    },
-    'output': 0
-})
+tests.append({"input": {"cards": [8], "num": 8}, "output": 0})
 # create test case for if cards does not contain num
 # the problem statement doesnt specify what to do in this scenario --> make a reasonable assumption
-tests.append({
-    'input': {
-        'cards': [4, 7, 1, 0, -9],
-        'num': 5
-    },
-    'output': -1
-})
+tests.append({"input": {"cards": [4, 7, 1, 0, -9], "num": 5}, "output": -1})
 # create test case for if cards is empty
-tests.append({
-    'input': {
-        'cards': [],
-        'num': 2
-    },
-    'output': -1
-})
+tests.append({"input": {"cards": [], "num": 2}, "output": -1})
 # create test case for if cards contains repeating numbers
-tests.append({
-    'input': {
-        'cards': [3, 3, 3, 8, 8, 1, 9, 3, 6, 6, 6],
-        'num': 1
-    },
-    'output': 5
-})
+tests.append(
+    {"input": {"cards": [3, 3, 3, 8, 8, 1, 9, 3, 6, 6, 6], "num": 1}, "output": 5}
+)
 # create test case for if cards contains num more than once
 # we assume our function will return the first instance of num
-tests.append({
-    'input': {
-        'cards': [3, 8, 3, 9, 0],
-        'num': 3
-    },
-    'output': 0
-})
+tests.append({"input": {"cards": [3, 8, 3, 9, 0], "num": 3}, "output": 0})
 
 # view full list of test cases
 # a good number of test cases to produce is 3-5
@@ -208,7 +156,7 @@ print(tests)
 
 # start with function signature produced in step 1
 
-'''
+"""
 def locate_card(cards, num):
     # create variable with value of 0
     position = 0
@@ -236,43 +184,43 @@ def locate_card(cards, num):
 
     # number not found, return -1
     return -1
-'''
+"""
 
 # test function using test cases produced in step 2
 
-'''
+"""
 result = locate_card(tests[0]['input']['cards'], tests[0]['input']['num'])
 print(result)
 print(result == tests[0]['output'])
 
 evaluate_test_cases(locate_card, tests)
 
-'''
+"""
 
 # code with the assumption that your code will be wrong
 
-'''
+"""
 cards6 = tests[6]['input']['cards']
 query6 = tests[6]['input']['num']
 locate_cards(cards6, query6)
 
-'''
+"""
 
 # we see that the issue is that the cards list is empty
 # print statements are a more effective way to debug
 
-'''
+"""
 evaluate_test_cases(locate_card, tests)
-'''
+"""
 
 # everytime you make changes to code, you want to test all cases again
 
-'''
+"""
 in real interviews, it's best to skip implementing and testing brute force solutions
 because it's easy to determine its complexity in plain english. However, brute force solutions
 are best for practice/study - in case youre not able to figure out the optimal solution, you can still
 implement the brute force solution, which is acceptable
-'''
+"""
 
 ###
 # Step 5 - see above
@@ -288,13 +236,14 @@ implement the brute force solution, which is acceptable
 # Step 7 (jump back to step 3) - implement solution from previous step
 ###
 
+
 def test_location(cards, num, mid):
     mid_number = cards[mid]
     print("mid:", mid, ", mid_number:", mid_number)
     # if middle number card is equal to our number...
     if mid_number == num:
         # ... check if the number card before it is still within range and equal to our number...
-        if mid - 1 >= 0 and cards[mid-1] == num:
+        if mid - 1 >= 0 and cards[mid - 1] == num:
             # ... if it is, return left
             return "left"
         else:
@@ -307,7 +256,8 @@ def test_location(cards, num, mid):
     # otherwise, return right
     else:
         return "right"
-    
+
+
 def locate_card(cards, num):
     low, high = 0, len(cards) - 1
 
@@ -316,7 +266,7 @@ def locate_card(cards, num):
         mid_card = cards[middle]
 
         print("lo:", low, ", hi:", high, ", mid:", middle, ", mid_number:", mid_card)
-        
+
         if mid_card == num:
             return middle
         elif mid_card < num:
@@ -326,10 +276,12 @@ def locate_card(cards, num):
 
     return -1
 
+
 # testing will show issues with cards lists that have repeating elements
 # we can fix this by creating a helper function test_location()
 # rule of thumb: functions must be 10 lines of code or less
 evaluate_test_cases(locate_card, tests)
+
 
 # generic algorithm for binary search
 def binary_search(low, high, condition):
@@ -344,10 +296,10 @@ def binary_search(low, high, condition):
             low = middle + 1
     return -1
 
+
 # take generic algorith and re-write our function
 # a function inside of a function is called "function closure"
 def locate_card(cards, num):
-    
     def condition(mid):
         if cards[mid] == num:
             if mid > 0 and cards[mid - 1] == num:
@@ -358,4 +310,5 @@ def locate_card(cards, num):
             return "left"
         else:
             return "right"
+
     return binary_search(0, len(cards) - 1, condition)
