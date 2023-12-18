@@ -1,7 +1,5 @@
 from jovian.pythondsa import evaluate_test_cases
 
-# Binary Search, Linked Lists, Complexity Analysis
-
 '''
 
 DSA is crucial because it helps you:
