@@ -115,3 +115,18 @@ test8 = {
 
 tests = [test1, test2, test3, test4, test5, test6, test7, test8]
 
+
+# Step 3
+
+"""
+BUBBLE SORT
+
+1. Iterate over list of numbers starting from the left
+2. Compare each number with the number that follows it
+3. If number greater than following, swap the elements
+4. Repeat 1-3 until sort complete, at most n-1 times
+
+"""
+
+
+# Step 4
