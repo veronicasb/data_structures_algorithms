@@ -1,4 +1,5 @@
 import random
+from jovian.pythondsa import evaluate_test_cases
 
 """
 PROBLEM
@@ -130,3 +131,27 @@ BUBBLE SORT
 
 
 # Step 4
+
+
+def bubble_sort(nums):
+    # avoid modifying nums in place so as not to effect our testing
+    # ask interviewers to clarify whether they want list sorted in-place or not
+    nums = list(nums)
+
+    for j in range(len(nums) - 1):
+        for i in range(len(nums) - 1):
+            if nums[i] > nums[i + 1]:
+                nums[i], nums[i + 1] = nums[i + 1], nums[i]
+
+    return nums
+
+
+nums0, output0 = test0["input"]["nums"], test0["output"]
+
+print("Input:", nums0)
+print("Expected Output:", output0)
+result0 = bubble_sort(nums0)
+print("Actual Output:", result0)
+print("Match:", result0 == output0)
+
+results = evaluate_test_cases(bubble_sort, tests)
