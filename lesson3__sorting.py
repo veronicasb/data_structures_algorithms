@@ -232,6 +232,7 @@ time complexity, because it is more adaptive.
 
 """
 
+
 # Step 7 (repeat step 3)
 
 """
@@ -244,8 +245,8 @@ Basically what we wrote above.
 
 """
 
-# Step 8 (repeat step 4)
 
+# Step 8 (repeat step 4)
 
 def merge(nums1, nums2):
     # set variable to hold results
@@ -276,21 +277,73 @@ def merge(nums1, nums2):
 def merge_sort(nums):
     # Our terminating condition
     # If list is empty or has 1 element, return it
-    if len(nums) <= 1:
+    if len(nums) < 2:
         return nums
 
     # Divide list into 2 equal parts
     mid = len(nums) // 2
-    left_half = nums[:mid]
-    right_half = nums[mid:]
+    # left_half = nums[:mid]
+    # right_half = nums[mid:]
 
     # Sort each part recursively
-    left_sorted, right_sorted = merge_sort(left_half), merge_sort(right_half)
+    # left_sorted, right_sorted = merge_sort(nums[:mid]), merge_sort(nums[mid:])
 
     # Combine the 2 parts
-    sorted_nums = merge(left_sorted, right_sorted)
+    # sorted_nums = merge(left_sorted, right_sorted)
 
-    return sorted_nums
+    return merge(merge_sort(nums[:mid]),
+                  merge_sort(nums[mid:]))
 
 
 results = evaluate_test_cases(merge_sort, tests)
+
+
+# Step 9 (repeat step 5)
+
+"""
+COMPLEXITY ANALYSIS OF MERGE SORT
+
+Time complexity: O(nlogn)
+
+Space complexity: O(n)
+
+Merge Sort requires allocating space as large as the input itself. This makes it slow in 
+practice since memory allocation is more expensive than comparison and swapping as in 
+Bubble Sort.
+
+So Bubble Sort is slowest, Insertion Sort is a bit faster, and Merge Sort is even 
+faster, but inefficient with space.
+
+"""
+
+# Step 10 (repeat step 6)
+
+"""
+To resolve the inefficiency above, we have...
+
+QUICKSORT
+
+1. If list is less than 2 elements, return it
+2. Pick a random element from the list - this is called our "pivot"
+3. Reorder the list so that all elements less than our "pivot" come before it and 
+the elements greater than it come after. This process is called "partitioning".
+4. The pivot element divides the list into 2 parts that can be sorted recursively and 
+independently.
+
+"""
+
+# Helper function - picks pivot, partitions list, and returns position of pivot
+def partition():
+    pass
+
+def quicksort(nums, start=0, end=None):
+    if end is None:
+        nums = list(nums)
+        ebd = len(nums) - 1
+
+    if start < end:
+        pivot = partition(nums, start, end)
+        quicksort(nums, start, pivot - 1)
+        quicksort(nums, pivot + 1, end)
+
+    return nums
