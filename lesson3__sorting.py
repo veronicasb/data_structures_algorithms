@@ -166,6 +166,7 @@ print("Match:", result0 == output0)
 
 results = evaluate_test_cases(bubble_sort, tests)
 
+
 def insertion_sort(nums):
     # create copy of list
     nums = list(nums)
@@ -180,11 +181,12 @@ def insertion_sort(nums):
         while j >= 0 and nums[j] > cur:
             # if so, decrement our new index variable by 1 (compare the second previous element)
             # we basically look thru previous elements until we find one that is less than our current element
-            j -=1
+            j -= 1
         # place our current list element in front of previous element being compared
-        nums.insert(j+1, cur)
+        nums.insert(j + 1, cur)
     # return sorted list
     return nums
+
 
 # Step 5
 
@@ -241,5 +243,54 @@ Basically what we wrote above.
 4. Merge/Combine the 2 parts 
 
 """
- 
+
 # Step 8 (repeat step 4)
+
+
+def merge(nums1, nums2):
+    # set variable to hold results
+    result = []
+
+    # set values for iteration
+    i, j = 0, 0
+
+    # iterate over each list
+    while i < len(nums1) and j < len(nums2):
+        # compare elements from each list
+        if nums1[i] <= nums2[j]:
+            # add the lesser value to the results first
+            result.append(nums1[i])
+            i += 1
+        else:
+            result.append(nums2[j])
+            j += 1
+
+    # get remainder of each list
+    nums1_tail = nums1[i:]
+    nums2_tail = nums2[j:]
+
+    # return final sorted and merged lists
+    return result + nums1_tail + nums2_tail
+
+
+def merge_sort(nums):
+    # Our terminating condition
+    # If list is empty or has 1 element, return it
+    if len(nums) <= 1:
+        return nums
+
+    # Divide list into 2 equal parts
+    mid = len(nums) // 2
+    left_half = nums[:mid]
+    right_half = nums[mid:]
+
+    # Sort each part recursively
+    left_sorted, right_sorted = merge_sort(left_half), merge_sort(right_half)
+
+    # Combine the 2 parts
+    sorted_nums = merge(left_sorted, right_sorted)
+
+    return sorted_nums
+
+
+results = evaluate_test_cases(merge_sort, tests)
