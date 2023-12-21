@@ -129,6 +129,16 @@ BUBBLE SORT
 
 """
 
+"""
+INSERTION SORT
+
+1. Iterate over a list of numbers 
+2. Compare each number to numbers previous to it
+3. If a previous number is greater than our current, insert 
+current element in its position
+4. Repeat 1-3 until sort complete
+"""
+
 
 # Step 4
 
@@ -155,3 +165,54 @@ print("Actual Output:", result0)
 print("Match:", result0 == output0)
 
 results = evaluate_test_cases(bubble_sort, tests)
+
+def insertion_sort(nums):
+    # create copy of list
+    nums = list(nums)
+    # iterate over list
+    for i in range(len(nums)):
+        # pull current list element out and put it aside
+        cur = nums.pop(i)
+        # set a new index variable that is 1 less than our current index
+        j = i - 1
+        # ensure that our new index variable is still within list index range
+        # also ensure that the element that came before our current element is larger
+        while j >= 0 and nums[j] > cur:
+            # if so, decrement our new index variable by 1 (compare the second previous element)
+            # we basically look thru previous elements until we find one that is less than our current element
+            j -=1
+        # place our current list element in front of previous element being compared
+        nums.insert(j+1, cur)
+    # return sorted list
+    return nums
+
+# Step 5
+
+"""
+COMPLEXITY ANALYSIS OF BUBBLE SORT
+
+The core operations of Bubble Sort are "compare" and "swap". 
+
+(n - 1) * (n - 1) = n^2 - 2n + 1
+
+So, the time complexity of Bubble Sort is O(n^2), AKA "quadratic complexity".
+
+The space complexity of Bubble Sort is O(n) because the space required to store inputs 
+must be considered.
+
+If we were sorting a massive list, we'd come to find that bubble sort is very inefficient.
+This is because we're shifting elements one position at a time.
+
+"""
+
+"""
+COMPLEXITY ANALYSIS OF INSERTION SORT
+
+Time complexity: O(n^2)
+
+Space complexity of: O(1)
+
+Insertion Sort is faster than Bubble Sort in practice, despite having the same 
+time complexity, because it is more adaptive.
+
+"""
