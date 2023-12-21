@@ -216,3 +216,30 @@ Insertion Sort is faster than Bubble Sort in practice, despite having the same
 time complexity, because it is more adaptive.
 
 """
+
+
+# Step 6
+
+"""
+"DIVIDE AND CONQUER" - MERGE SORT
+
+1. Divide the inputs into two roughly equal parts
+2. Recursively solve the problem individually for each of the two parts
+3. Combine the results to solve the problem for the original inputs
+4. Include terminating conditions for small or indivisible inputs
+
+"""
+
+# Step 7 (repeat step 3)
+
+"""
+State solution in plain english. Our new solution is Merge Sort.
+Basically what we wrote above.
+1. If list is empty or contains one element, return it
+2. If not, divide the list into 2 equal parts
+3. Sort each part recursively using Merge Sort
+4. Merge/Combine the 2 parts 
+
+"""
+ 
+# Step 8 (repeat step 4)
