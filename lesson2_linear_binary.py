@@ -223,6 +223,7 @@ class UserDatabase:
         # instantiating it will create an empty list for new users
         self.users = []
 
+    # Linear Search
     def insert(self, user):
         # create a starting position at 0
         i = 0

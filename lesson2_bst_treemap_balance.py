@@ -409,7 +409,6 @@ for key, value in treemap:
 
 
 """
-
 When creating solutions, make implementation as Python-friendly/intuitive as possible
 AKA "encapsulation"
 """
