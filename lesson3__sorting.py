@@ -164,7 +164,7 @@ result0 = bubble_sort(nums0)
 print("Actual Output:", result0)
 print("Match:", result0 == output0)
 
-results = evaluate_test_cases(bubble_sort, tests)
+# results = evaluate_test_cases(bubble_sort, tests)
 
 
 def insertion_sort(nums):
@@ -295,7 +295,7 @@ def merge_sort(nums):
                   merge_sort(nums[mid:]))
 
 
-results = evaluate_test_cases(merge_sort, tests)
+# results = evaluate_test_cases(merge_sort, tests)
 
 
 # Step 9 (repeat step 5)
@@ -314,9 +314,12 @@ Bubble Sort.
 So Bubble Sort is slowest, Insertion Sort is a bit faster, and Merge Sort is even 
 faster, but inefficient with space.
 
+***Try to void memory allocations as much as possible***
+
 """
 
-# Step 10 (repeat step 6)
+
+# Step 10 (repeat step 6, jump back to step 3)
 
 """
 To resolve the inefficiency above, we have...
@@ -332,14 +335,50 @@ independently.
 
 """
 
+
+# Step 11 (repeat step 4)
+
 # Helper function - picks pivot, partitions list, and returns position of pivot
-def partition():
-    pass
+def partition(nums, start=0, end=None):
+    if end is None:
+        end = len(nums) - 1
+        print("Pivot:", nums[end])
+
+    # Left and right pointers
+    l, r = start, end - 1
+    print("Left Pointer Index:", l, ", Left Pointer Value:", nums[l])
+    print("Right Pointer:", r, ", Right Pointer Value:", nums[r])
+
+    # Iterate over list while left and right pointers do not overlap
+    while r > l:
+        # Increment left pointer if number is less or equal to pivot
+        # Left pointer is travelling left to right on list
+        if nums[l] <= nums[end]:
+            print("Left Element:", nums[l], ", Pivot Element:", nums[end])
+            l += 1
+            print("New Left Pointer:", l)
+        # Decrement right pointer if number is greater than pivot
+        # Right pointer is traveling right to left on list
+        elif nums[r] > nums[end]:
+            print("Right Element:", nums[r], ", Pivot Element:", nums[end])
+            r -= 1
+            print("New Right Pointer:", r)
+        # If 2 out-of-place elements are found, swap them
+        else:
+            print("Element out of place:", nums[l], "at left index", l)
+            print("Element out of place:", nums[r], "at right index", r)
+            nums[l], nums[r] = nums[r], nums[l]
+    # Place pivot between the 2 parts
+    if nums[l] > nums[end]:
+        nums[l], nums[end] = nums[end], nums[l]
+        return l
+    else:
+        return end 
 
 def quicksort(nums, start=0, end=None):
     if end is None:
         nums = list(nums)
-        ebd = len(nums) - 1
+        end = len(nums) - 1
 
     if start < end:
         pivot = partition(nums, start, end)
@@ -347,3 +386,26 @@ def quicksort(nums, start=0, end=None):
         quicksort(nums, pivot + 1, end)
 
     return nums
+
+# results = evaluate_test_cases(quicksort, tests)
+
+ls = [1, 5, 6, 2, 0, 11, 3]
+partition_example = partition(ls)
+
+
+# Step 12 (repeat step 5)
+
+"""
+COMPLEXITY ANALYSIS OF QUICKSORT
+
+Time Complexity
+Average-Case: O(nlogn) if youre able to partition list in roughly equal parts
+Worst-Case: O(n^2) if your pivot ends up being the lowest possible element, at most, 
+we'll end up making a recursive call to Quicksort n-1 times. This is as bad as Bubble Sort
+
+Space Complexity: O(1)
+
+Quicksort is still preferred because its running time is closer to O(nlogn) in practice 
+as long as you use a good strategy for picking a pivot.
+
+"""
