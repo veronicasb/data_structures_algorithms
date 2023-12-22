@@ -450,3 +450,47 @@ def compare_likes(nb1, nb2):
         return "greater"
     elif nb1.likes == nb2.likes:
         return "equal"
+    
+def default_compare(x, y):
+    if x < y:
+        return "lesser"
+    elif x == y:
+        return "equal"
+    else:
+        return "greater"
+
+def merge(left, right, compare):
+    i, j, merged = 0, 0, []
+    while i < len(left) and j < len(right):
+        result = compare(left[i], right[j])
+        if result == "lesser" or result == "equal":
+            merged.append(left[i])
+            i += 1
+        else:
+            merged.append(right[j])
+            j += 1
+    return merged + left[i:] + right[j:]
+
+# Implement merge sort using custom comparison function
+def merge_sort(objs, compare=default_compare):
+    if len(objs) < 2:
+        return objs
+    mid = len(objs) // 2
+    return merge(merge_sort(objs[:mid], compare),
+                 merge_sort(objs[mid:], compare),
+                 compare)
+
+sorted_notebooks = merge_sort(notesbooks, compare_likes)
+
+for book in sorted_notebooks:
+    print(book)
+
+
+"""
+EXERCISES:
+
+1. Implement generic form of Bubble Sort
+2. Implement generic form of Insertion Sort
+3. Implement generic form of Quicksort
+
+"""
