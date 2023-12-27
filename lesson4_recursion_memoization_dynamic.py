@@ -14,7 +14,7 @@ PROBLEM
 Write a function to find the length of the longest common subsequence between
 two sequences.
 
-A sequence is a group of items with deterministic ordering.
+A sequence is a group of items with deterministic ordering. Strings, lists, tuples, etc.
 
 A subsequence is a sequence obtained by deleting zero or more elements from 
 another sequence.
@@ -55,3 +55,82 @@ def len_lcs(seq1, seq2):
 
 
 # Step 2
+
+"""
+Example inputs: (4 to 5 or more)
+
+1. 2 sequences with no common subsequence
+2. 2 empty subsequences
+3. 1 empty subsequence
+4. 1 sequence that is a whole subsequence of the other
+5. multiple lcs
+6. general case (lists)
+7. general case (strings)
+
+"""
+
+t0 = {
+    "input": {
+        "seq1": "serendipitous",
+        "seq2": "precipitation"
+    },
+    "output": 7
+}
+
+t1 = {
+    "input": {
+        "seq1": [1, 3, 5, 7, 2, 5, 2, 3],
+        "seq2": [6, 2, 4, 7, 1, 5, 6, 2, 3]
+    },
+    "output": 5
+}
+
+t2 = {
+    "input": {
+        "seq1": "longest",
+        "seq2": "stone"
+    },
+    "output": 3
+}
+
+t3 = {
+    "input": {
+        "seq1": "asdfwevad",
+        "seq2": "opkpoiklklj"
+    },
+    "output": 0
+}
+
+t4 = {
+    "input": {
+        "seq1": "dense",
+        "seq2": "condensed"
+    },
+    "output": 5
+}
+
+t5 = {
+    "input": {
+        "seq1": "",
+        "seq2": "opkpoiklklj"
+    },
+    "output": 0
+}
+
+t6 = {
+    "input": {
+        "seq1": "",
+        "seq2": ""
+    },
+    "output": 0
+}
+
+t7 = {
+    "input": {
+        "seq1": "abcdef",
+        "seq2": "badcfe"
+    },
+    "output": 3
+}
+
+lcs_tests = [t0, t1, t2, t3, t4, t5, t6, t7]
