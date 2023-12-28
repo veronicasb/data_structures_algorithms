@@ -134,3 +134,24 @@ t7 = {
 }
 
 lcs_tests = [t0, t1, t2, t3, t4, t5, t6, t7]
+
+
+# Step 3
+
+"""
+RECURSIVE SOLUTION
+
+1. Create 2 iterator variables idx1 and idx2 starting at 0 that will scan thru each sequence.
+Our recursive function will compute the LCS of seq1[idx1:] and seq2[idx2:]
+
+2. If seq1[idx1] and seq2[idx2] are equal, then this character belongs to the LCS of 
+seq1[idx1:] and seq2[idx2:].
+
+3. If seq1[idx1] and seq2[idx2] are NOT equal, then the LCS of seq1[idx1:] and seq2[idx2:] is the 
+longer one among the LCS of seq1[idx1+1:], seq2[idx2:] and the LCS of seq1[idx1:], seq2[idx2+1:] 
+
+4. if either seq1[idx1:] or seq2[idx2:] is empty, then their LCS is 0/empty
+
+Solution resembles a binary tree.
+
+"""
