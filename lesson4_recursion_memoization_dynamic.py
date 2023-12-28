@@ -1,3 +1,5 @@
+from jovian.pythondsa import evaluate_test_cases
+
 """
 2 common problems in dynamic programming: 
 
@@ -150,8 +152,30 @@ seq1[idx1:] and seq2[idx2:].
 3. If seq1[idx1] and seq2[idx2] are NOT equal, then the LCS of seq1[idx1:] and seq2[idx2:] is the 
 longer one among the LCS of seq1[idx1+1:], seq2[idx2:] and the LCS of seq1[idx1:], seq2[idx2+1:] 
 
-4. if either seq1[idx1:] or seq2[idx2:] is empty, then their LCS is 0/empty
+4. If either seq1[idx1:] or seq2[idx2:] is empty, then their LCS is 0/empty
 
 Solution resembles a binary tree.
 
 """
+
+
+# Step 4
+
+def lcs_recursive(seq1, seq2, idx1=0, idx2=0):
+    # The end-scenario/base-case should always be handled first
+    if idx1 == len(seq1) or idx2 == len(seq2):
+        return 0
+    elif seq1[idx1] == seq2[idx2]:
+        return 1 + lcs_recursive(seq1, seq2, idx1+1, idx2+1)
+    else:
+        option1 = lcs_recursive(seq1, seq2, idx1+1, idx2)
+        option2 = lcs_recursive(seq1, seq2, idx1, idx2+1)
+        return max(option1, option2)
+    
+result = lcs_recursive(lcs_tests[0]["input"]["seq1"], lcs_tests[0]["input"]["seq2"])
+print(result, lcs_tests[0]["output"])
+
+evaluate_test_cases(lcs_recursive, lcs_tests)
+
+
+# Step 5
