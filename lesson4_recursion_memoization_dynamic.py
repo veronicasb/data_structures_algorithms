@@ -166,8 +166,10 @@ def lcs_recursive(seq1, seq2, idx1=0, idx2=0):
     if idx1 == len(seq1) or idx2 == len(seq2):
         return 0
     elif seq1[idx1] == seq2[idx2]:
+        # If elements match, we have 1 recursive call
         return 1 + lcs_recursive(seq1, seq2, idx1+1, idx2+1)
     else:
+        # If elements dont match, we need 2 recursive calls
         option1 = lcs_recursive(seq1, seq2, idx1+1, idx2)
         option2 = lcs_recursive(seq1, seq2, idx1, idx2+1)
         return max(option1, option2)
@@ -179,3 +181,52 @@ evaluate_test_cases(lcs_recursive, lcs_tests)
 
 
 # Step 5
+
+"""
+Remember that the number of leaf nodes N in a binary tree means that the height of 
+the tree is O(logN), which gives us enough information to determine the size of the tree.
+
+Time complexity = O(2^m+n)
+m is the length of 1 sequence and n is the length of the other. 2^m+n will end up being the 
+number of leaves in our tree. The total number of elements in our tree will end up being 
+double that minus 1.
+
+We end up making 2^m+n recursive calls in our solution.
+
+One inefficiency that exists in our solution is that we end up recursing over repeating 
+"elements" in our tree, so we resolve subproblems more than once, which isnt necessary.
+We can improve this using "memoization".
+
+"""
+
+
+# Step 6
+
+# Memoization ("memorization") = remember solution in a dictionary called "memo"
+# Track intermediate results in the dictionary so we know what not to compute again
+def lcs_memo(seq1, seq2):
+    memo = {}
+    # a recursive helper function (a function inside a function is called "function closure")
+    def recurse(idx1=0, idx2=0):
+        # the total possible number of keys would be m*n
+        # our keys resemble the element pairs we see in the depiction of our binary tree
+        key = (idx1, idx2)
+        if key in memo:
+            return memo[key]
+        elif idx1 == len(seq1) or idx2 == len(seq2):
+            memo[key] = 0
+        elif seq1[idx1] == seq2[idx2]:
+            memo[key] = 1 + recurse(idx1+1, idx2+1)
+        else:
+            memo[key] = max(recurse(idx1+1, idx2), recurse(idx1, idx2+1))
+        return memo[key]
+    return recurse(0, 0)
+
+"""
+The complexity of any memoization case will be the number of keys in that dictionary. 
+In this case, it would be m*n. So, we've managed to reduce the time complexity of our 
+solution from O(2^m+n) to O(m*n).
+
+"""
+
+# Step 7 (repeat step 3) - state memoization in plain English
