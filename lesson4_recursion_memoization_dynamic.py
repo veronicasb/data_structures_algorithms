@@ -1,4 +1,5 @@
 from jovian.pythondsa import evaluate_test_cases
+import numpy as np
 
 """
 2 common problems in dynamic programming: 
@@ -225,8 +226,59 @@ def lcs_memo(seq1, seq2):
 """
 The complexity of any memoization case will be the number of keys in that dictionary. 
 In this case, it would be m*n. So, we've managed to reduce the time complexity of our 
-solution from O(2^m+n) to O(m*n).
-
+solution from O(2^m+n) to O(m*n). m and n are the lengths of our sequences.
+ 
 """
 
 # Step 7 (repeat step 3) - state memoization in plain English
+
+"""
+Disadvantages of memoization: requires recursive calls, which is an issue for large problems (recursion takes up memory and time)
+
+Dynamic Programming: can resolve disadvantages of memoization thru iteration - instead of using a dictionary, we use a matrix; 
+we can use for-loops instead of recursion
+
+1. Create a matrix of (n1 + 1) * (n2 + 1) initialized with 0s. matrix[i][j] represents the LCS of seq1[:i] and seq2[:j].
+n1 and n2 are the lengths of our sequences.
+2. If seq1[i] and seq2[j] are equal, then matrix[i+1][j+1] = 1 + matrix[i][j]
+3. If seq1[i] and seq2[j] are equal, then matrix[i+1][j+1] = max(matrix[i][j+1], matrix[i+1][j])
+
+Complexity = O(n1*n2), the same as memoization
+
+"""
+
+
+# Step 8
+
+def dynamic_lcs(seq1, seq2):
+    n1, n2 = len(seq1), len(seq2)
+    seq_matrix = np.zeros((n1+1, n2+1))
+    # could also do [[0 for x in range(n2)] for x in range(n1)]
+    for i in range(n1):
+        for j in range(n2):
+            if seq1[i] == seq2[j]:
+                seq_matrix[i+1][j+1] = 1 + seq_matrix[i][j] 
+            else:
+                seq_matrix[i+1][j+1] = max(seq_matrix[i][j+1], seq_matrix[i+1][j])
+    return seq_matrix[-1][-1]
+
+evaluate_test_cases(dynamic_lcs, lcs_tests)
+
+
+# Step 9
+
+"""
+COMPLEXITY ANALYSIS - Dynamic Programming
+
+
+"""
+"""
+A recursive solution will almost always be the brute-force solution to start with. 
+If the same sub-problem is being solved repeatedly, the next step to take would be 
+memoization. Because memoization isnt efficient in solving big problems, dynamic programming 
+would be the next best step.
+
+"""
+
+
+# Knapsack
