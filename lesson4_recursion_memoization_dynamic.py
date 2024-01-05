@@ -31,7 +31,7 @@ METHOD
 2. Brainstorm example inputs and outputs, especially ones that cover edge cases
 3. Brainstorm a correct solution for the problem stated in plain English
 4. Implement solution and test example inputs. Fix bugs.
-5. Analyze complexity and indentify inefficiencies.
+5. Analyze complexity and identify inefficiencies.
 6. Improve inefficiencies, then repeat 3-6
 
 """
@@ -301,7 +301,7 @@ can be made by selecting a subset of elements weighing no more than w.
 
 """
 A function that selects a subset of elements from n elements, then determines max profit that can be made. 
-Each element has a weight and a profit, and the subset should weigh no more than some capacity w. 
+Each element has a weight and a profit, and the subset should weigh no more than some capacity. 
 
 Parameters: 
 1. weights: a list containing weights
@@ -391,4 +391,49 @@ tests = [test0,test1, test2, test3, test4, test5]
 
 """
 RECURSIVE SOLUTION
+
+1. Compute max_profit(weights[idx: ], profits[idx: ], capacity) with idx starting at 0
+
+2. If weights[idx] > capacity, the current element cannot be selected, so max profit will 
+be the same as max_profit(weights[idx+1: ], profits[idx+1: ], capacity)
+
+3. Otherwise, there are 2 options: pick weights[idx] or not. We can recursively compute 
+the maximum
+
+3a. If we dont pick weights[idx], max profit is max_profit(weights[idx+1: ], profits[idx+1: ], 
+capacity) once again
+
+3b. If we pick weights[idx], max profit is profits[idx] + max_profit(weights[idx + 1: ], profits[idx + 1: ], 
+capacity - weights[idx])
+
+
 """
+
+
+# Step 4
+
+def max_profit_recurse(weights, profits, capacity, idx=0):
+    if idx == len(weights):
+            return 0
+    elif weights[idx] > capacity:
+        return max_profit_recurse(weights, profits, capacity, idx + 1)
+    else:
+        option1 = max_profit_recurse(weights, profits, capacity, idx + 1)
+        option2 = profits[idx] + max_profit_recurse(weights, profits, 
+                                            capacity - weights[idx], idx + 1)
+        return max(option1, option2)
+    
+evaluate_test_cases(max_profit_recurse, tests)
+
+
+# Step 5
+
+"""
+Time complexity of our recursive solution: O(2^n) where n is the length of elements
+
+The next step to take to improve efficieny would be to create the memoized version of 
+our solution above with the capacity and idx as keys.
+
+"""
+
+
