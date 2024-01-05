@@ -230,7 +230,7 @@ solution from O(2^m+n) to O(m*n). m and n are the lengths of our sequences.
  
 """
 
-# Step 7 (repeat step 3) - state memoization in plain English
+# Step 7 (repeat step 3)
 
 """
 Disadvantages of memoization: requires recursive calls, which is an issue for large problems (recursion takes up memory and time)
@@ -248,7 +248,7 @@ Complexity = O(n1*n2), the same as memoization
 """
 
 
-# Step 8
+# Step 8 (repeat step 4)
 
 def dynamic_lcs(seq1, seq2):
     n1, n2 = len(seq1), len(seq2)
@@ -265,7 +265,7 @@ def dynamic_lcs(seq1, seq2):
 evaluate_test_cases(dynamic_lcs, lcs_tests)
 
 
-# Step 9
+# Step 9 (repeat step 5)
 
 """
 COMPLEXITY ANALYSIS - Dynamic Programming
@@ -423,7 +423,7 @@ def max_profit_recurse(weights, profits, capacity, idx=0):
                                             capacity - weights[idx], idx + 1)
         return max(option1, option2)
     
-evaluate_test_cases(max_profit_recurse, tests)
+# evaluate_test_cases(max_profit_recurse, tests)
 
 
 # Step 5
@@ -437,3 +437,99 @@ our solution above with the capacity and idx as keys.
 """
 
 
+# Step 6
+
+# RECAP: Memoization ("memorization") = remember solution in a dictionary called "memo"
+# RECAP: Track intermediate results in the dictionary so we know what not to compute again
+def max_profit_memo(weights, profits, capacity):
+    memo = {}
+    # a recursive helper function (a function inside a function is called "function closure")
+    def recurse(capacity, idx=0):
+        # the total possible number of keys would be m*n
+        # our keys resemble the element pairs we see in the depiction of our binary tree
+        key = (capacity, idx)
+        if key in memo:
+            return memo[key]
+        if idx == len(weights):
+            memo[key] = 0
+        elif weights[idx] > capacity:
+            memo[key] = recurse(capacity, idx + 1)
+        else:
+            option1 = recurse(capacity, idx + 1)
+            option2 = profits[idx] + recurse(capacity - weights[idx], idx + 1)                                      
+            memo[key] = max(option1, option2)
+        return memo[key]
+    return recurse(0, 0)
+
+# evaluate_test_cases(max_profit_memo, tests)
+
+"""
+RECAP:
+
+The complexity of any memoization case will be the number of keys in that dictionary. 
+In this case, it would be m*n. So, we've managed to reduce the time complexity of our 
+solution from O(2^m+n) to O(m*n). m and n are the lengths of our sequences.
+ 
+"""
+
+
+# Step 7 (repeat step 3)
+
+"""
+RECAP:
+
+Disadvantages of memoization: requires recursive calls, which is an issue for large problems (recursion takes up memory and time)
+
+Dynamic Programming: can resolve disadvantages of memoization thru iteration - instead of using a dictionary, we use a matrix; 
+we can use for-loops instead of recursion
+
+1. Create a matrix of (n + 1) * (capacity + 1) initialized with 0s. matrix[i][c] max profit that can be made using the first i 
+elements if our max capacity is c.
+2. Fill matrix row by row and column by column. matrix[i][c] can be filled using some values in the row above it.
+3. If weights[i] > c (current element is larger than capacity), then matrix[i+1][c] = matrix[i][c] (because we cant pick this 
+element).
+4. If weights[i] <= c, then we have 2 choices: pick current element or not to get the value matrix[i + 1][c]. We can compare max 
+profit for both to pick the better option as the value of table[i][c].
+4a. If we dont pick the element of weight[i], then max profit is table[i][c].
+4b. If we pick the element of weight[i], then max profit is profits[i] + table[i][c - weights[i]].
+
+Complexity = O(n1*n2), the same as memoization
+
+"""
+
+
+# Step 8 (repeat step 4)
+
+def dynamic_max_profit(weights, profits, capacity):
+    n = len(weights)
+    seq_matrix = np.zeros((n + 1, capacity + 1))
+    # could also do [[0 for x in range(n2)] for x in range(n1)]
+    for i in range(n):
+        for c in range(1, capacity+1):
+            if weights[i] > c:
+                seq_matrix[i+1][c] = seq_matrix[i][c]
+            else:
+                seq_matrix[i+1][c] = max(seq_matrix[i][c], 
+                                         profits[i] + seq_matrix[i][c - weights[i]])
+    return seq_matrix[-1][-1]
+ 
+evaluate_test_cases(dynamic_max_profit, tests)
+
+
+# Step 9 (repeat step 5)
+
+"""
+COMPLEXITY ANALYSIS - Dynamic Programming (knapsack)
+
+
+"""
+
+"""
+A recursive solution will almost always be the brute-force solution to start with. 
+If the same sub-problem is being solved repeatedly, the next step to take would be 
+memoization. Because memoization isnt efficient in solving big problems, dynamic programming 
+would be the next best step.
+
+"""
+
+# CHALLENGE: determine the actual elements used to determine max profit
