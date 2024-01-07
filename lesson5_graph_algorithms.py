@@ -3,7 +3,7 @@
 
 num_nodes = 5
 edges = [(0, 1), (0, 4), (1, 2), (2, 3), (3, 1), (1, 4), (3, 4)]
-print(num_nodes, len(edges))
+# print(num_nodes, len(edges))
 
 
 # Adjacency Lists - a more efficient way to represent graphs
@@ -61,15 +61,14 @@ class Graph:
         # add new edge to our edges list
         self.edges.append(edge)
 
-        # set our number of nodes accordingly
+        # get our new number of nodes
         nodes = set()
         for element in self.edges:
             for node in element:
                 nodes.add(node)
-        self.num_nodes = len(nodes)
         
         # Create a new empty data list with the right number of empty lists
-        self.data = [[] for _ in range(self.num_nodes)]
+        self.data = [[] for _ in range(len(nodes))]
         # Insert into proper lists
         for n1, n2 in self.edges:
             self.data[n1].append(n2)
@@ -79,15 +78,14 @@ class Graph:
         # remove edge from our existing list
         self.edges.remove(edge)
 
-        # set our number of nodes accordingly
+        # get our new number of nodes
         nodes = set()
         for element in self.edges:
             for node in element:
                 nodes.add(node)
-        self.num_nodes = len(nodes)
 
         # Create a new empty data list with the right number of empty lists
-        self.data = [[] for _ in range(self.num_nodes)]
+        self.data = [[] for _ in range(len(nodes))]
         # Insert into proper lists
         for n1, n2 in self.edges:
             self.data[n1].append(n2)
@@ -112,3 +110,35 @@ graph2.add_edge((5, 6))
 graph2.remove_edge((5, 6))
 # print(graph2)
 
+
+# Adjacency Matrix - another more efficient way of representing graphs
+
+"""
+1. initiate a matrix of 0s the size of n * n where n is our number of nodes
+2. for each node, fill the matrix with 1s depending on where each node has an edge
+
+"""
+
+# CHALLENGE: Create a class that creates an adjacency matrix
+
+class Graph2:
+    def __init__(self, num_nodes, edges):
+        self.num_nodes = num_nodes
+        self.edges = edges
+        # initialize matrix of 0s the size of n
+        self.adjacency_matrix = [[0 for y in range(self.num_nodes)] for x in range(self.num_nodes)]
+
+        # fill in matrix with 1s where edges exist
+        for n1, n2 in self.edges:
+            self.adjacency_matrix[n1][n2] = 1
+            self.adjacency_matrix[n2][n1] = 1
+
+    def __repr__(self):
+        # enumerate function lists elements in an iterable object with its index as a tuple
+        return "\n".join([f"{[y for y in x]}" for x in self.adjacency_matrix])
+
+    def __str__(self):
+        return self.__repr__()
+
+graph3 = Graph2(num_nodes, edges)
+print(graph3)
