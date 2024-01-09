@@ -63,9 +63,7 @@ class Graph:
 
         # get our new number of nodes
         nodes = set()
-        for element in self.edges:
-            for node in element:
-                nodes.add(node)
+        [[nodes.add(node) for node in element] for element in self.edges]
         
         # Create a new empty data list with the right number of empty lists
         self.data = [[] for _ in range(len(nodes))]
@@ -80,9 +78,7 @@ class Graph:
 
         # get our new number of nodes
         nodes = set()
-        for element in self.edges:
-            for node in element:
-                nodes.add(node)
+        [[nodes.add(node) for node in element] for element in self.edges]
 
         # Create a new empty data list with the right number of empty lists
         self.data = [[] for _ in range(len(nodes))]
@@ -108,7 +104,7 @@ graph2.add_edge((5, 6))
 # print(graph2)
 
 graph2.remove_edge((5, 6))
-# print(graph2)
+print(graph2)
 
 
 # Adjacency Matrix - another more efficient way of representing graphs
@@ -140,5 +136,11 @@ class Graph2:
     def __str__(self):
         return self.__repr__()
 
-graph3 = Graph2(num_nodes, edges)
-print(graph3)
+# graph3 = Graph2(num_nodes, edges)
+# print(graph3)
+
+
+# GRAPH TRAVERSALS
+
+# Breadth-First Search
+
