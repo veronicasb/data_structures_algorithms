@@ -175,7 +175,9 @@ def bfs(graph, root):
 
     discovered[root] = True
     queue.append(root)
+
     distance[root] = 0
+
     # Python doesnt support a dequeue operation by default, so we'll track indexes
     idx = 0
 
@@ -203,14 +205,70 @@ def bfs(graph, root):
 print(bfs(graph2, 3))
 
 """
-CHALLENGE: Write a function to check if nodes are connected (using BFS). Also, check how many connected 
+CHALLENGE: Write a function to check if all nodes are connected (using BFS). Also, check how many connected 
 components exist and what they're connected to. Use the below example data.
+
+1. Perform BFS starting with the first node - retrieve the connected components
+2. Then, find the next node that is not yet visited and perform BFS on that
+3. Repeat until all nodes are visited
 
 """
 
 num_nodes2 = 9
 edges2 = [(0, 1), (0, 3), (1, 2), (2, 3), (4, 5), (4, 6), (5, 6), (7, 8)]
 print(num_nodes2, len(edges2))
+
+graph4 = GraphList(num_nodes2, edges2)
+print(graph4)
+
+"""
+A function that checks if all nodes are connected, how many connected components exist, and what they're connected to.
+
+Input:
+1. graph - a GraphList object (an adjacency list)
+2. root - an int representing a node in the adjacency list
+
+Output:
+1. connected - a Boolean that declares if all nodes in a graph are connected or not
+2. components - an int representing the number of connected components
+3. connections - a list of connected components
+
+"""
+
+def connected(graph, root=0):
+    components = []
+    discovered = [False] * len(graph.data)
+    connected = False
+
+    while root < len(discovered):
+        
+        if discovered[root] == False:
+            queue = []
+            
+            discovered[root] = True
+            queue.append(root)
+
+            idx = 0
+
+            while idx < len(queue):
+                # dequeue
+                current = queue[idx]
+                idx += 1
+
+                # check all edges of current
+                for node in graph.data[current]:
+                    if not discovered[node]:
+                        discovered[node] = True
+                        queue.append(node)
+
+            components.append(queue)
+        root += 1
+    if len(components) == 1:
+        connected = True
+
+    return f"All Connected: {connected} \nNumber of Components: {len(components)} \nConnected Components: {components}"
+
+print(connected(graph4))
 
 
 # Depth-First Search (DFS)
