@@ -1,3 +1,4 @@
+# BFS, DFS, and Shortest Path
 
 # simple representation of a graph
 
@@ -42,7 +43,7 @@ class Graph:
 
 # CHALLENGE: Write a function to remove an edge from a graph represented as an adjacency list
 
-class Graph:
+class GraphList:
     def __init__(self, num_nodes, edges):
         self.num_nodes = num_nodes
         self.edges = edges
@@ -97,7 +98,7 @@ class Graph:
     def __str__(self):
         return self.__repr__()
     
-graph2 = Graph(num_nodes, edges)
+graph2 = GraphList(num_nodes, edges)
 # print(graph2)
 
 graph2.add_edge((5, 6))
@@ -111,13 +112,13 @@ print(graph2)
 
 """
 1. initiate a matrix of 0s the size of n * n where n is our number of nodes
-2. for each node, fill the matrix with 1s depending on where each node has an edge
+2. fill the matrix with 1s depending on where each node has an edge
 
 """
 
 # CHALLENGE: Create a class that creates an adjacency matrix
 
-class Graph2:
+class GraphMatrix:
     def __init__(self, num_nodes, edges):
         self.num_nodes = num_nodes
         self.edges = edges
@@ -136,11 +137,80 @@ class Graph2:
     def __str__(self):
         return self.__repr__()
 
-# graph3 = Graph2(num_nodes, edges)
-# print(graph3)
+graph3 = GraphMatrix(num_nodes, edges)
+print(graph3)
 
 
 # GRAPH TRAVERSALS
 
-# Breadth-First Search
+# Breadth-First Search (BFS)
 
+"""
+PSEUDOCODE
+
+1. BFS(G, root) where G is a graph and root is the root node of that graph
+2.      create a queue called Q - a queue is a data structure (list) that follows a FIFO (First In First Out) policy
+3.      label root as it is discovered
+4.      Q.enqueue(root) - enqueue is the acti of adding an element to a queue
+5.      while Q is not empty:
+6.          v = Q.dequeue() - dequeue is the act of removing an element from a queue
+7.          if v is equal to the goal:
+8.              return v
+9.          otherwise, for all edges from v to w in G.adjacentEdges(v):
+10.             if w is not labeled as discovered:
+11.                 label w as discovered
+12.                 Q.enqueue(w)
+
+"""
+
+def bfs(graph, root):
+    queue = []
+    discovered = [False] * len(graph.data)
+
+    # we can track distance - this will show us the number of edges away from the our root node in list order
+    distance = [None] * len(graph.data)
+
+    # we can track parents - this will show us the parent of a node relative to our root node in list order
+    parent = [None] * len(graph.data)
+
+    discovered[root] = True
+    queue.append(root)
+    distance[root] = 0
+    # Python doesnt support a dequeue operation by default, so we'll track indexes
+    idx = 0
+
+    while idx < len(queue):
+        # dequeue
+        current = queue[idx]
+        idx += 1
+
+        # check all edges of current
+        for node in graph.data[current]:
+            if not discovered[node]:
+                # tracking distance
+                distance[node] = 1 + distance[current]
+                
+                # tracking parents
+                parent[node] = current
+
+                discovered[node] = True
+                queue.append(node)
+
+    return queue, distance, parent
+
+# lets use graph2 for testing
+
+print(bfs(graph2, 3))
+
+"""
+CHALLENGE: Write a function to check if nodes are connected (using BFS). Also, check how many connected 
+components exist and what they're connected to. Use the below example data.
+
+"""
+
+num_nodes2 = 9
+edges2 = [(0, 1), (0, 3), (1, 2), (2, 3), (4, 5), (4, 6), (5, 6), (7, 8)]
+print(num_nodes2, len(edges2))
+
+
+# Depth-First Search (DFS)
