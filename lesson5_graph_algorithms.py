@@ -57,6 +57,7 @@ class GraphList:
             # insert into proper lists
             self.data[n1].append(n2)
             self.data[n2].append(n1)
+        print(self.data)
 
     def add_edge(self, edge):
         # add new edge to our edges list
@@ -240,15 +241,13 @@ Output:
 def connected(graph, root=0):
     components = []
     discovered = [False] * len(graph.data)
-    connected = False
 
     while root < len(discovered):
         
-        if discovered[root] == False:
-            queue = []
-            
+        # If a node is not yet discovered, mark it as discovered and create a queue for itself and its edge nodes
+        if not discovered[root]:
+            queue = [root]
             discovered[root] = True
-            queue.append(root)
 
             idx = 0
 
@@ -257,7 +256,7 @@ def connected(graph, root=0):
                 current = queue[idx]
                 idx += 1
 
-                # check all edges of current
+                # check all edges of current node
                 for node in graph.data[current]:
                     if not discovered[node]:
                         discovered[node] = True
@@ -265,8 +264,8 @@ def connected(graph, root=0):
 
             components.append(queue)
         root += 1
-    if len(components) == 1:
-        connected = True
+
+    connected = False if len(components) > 1 else True
 
     return f"All Connected: {connected} \nNumber of Components: {len(components)} \nConnected Components: {components}"
 
@@ -293,4 +292,45 @@ Main tool: stack - a data structure that follows a LIFO (Last In First Out) poli
 """
 
 def dfs_iterative(graph, root):
-    pass
+    stack = []
+    discovered = [False] * len(graph.data)
+    # everytime we pop something, we add to result list
+    result = []
+
+    stack.append(root)
+    # dont mark root node as discovered just yet
+
+    while len(stack) > 0:
+        current = stack.pop()
+        
+        if not discovered[current]:
+            discovered[current] = True
+            result.append(current)
+            # this for loop will iterate over all the nodes connected to the nodes under our current node
+            for node in graph.data[current]:
+                stack.append(node)
+
+    return result
+
+print(dfs_iterative(graph2, 3))
+
+"""
+CHALLENGE: Recreate the DFS function recursively.
+
+"""
+
+"""
+CHALLENGE: Determine shortest distance from one node to another using DFS.
+
+"""
+
+"""
+CHALLENGE: Write a function to detect a cycle and number of cycles in a graph.
+
+A cycle is a path that leads from a node back to itself. You can tell you have a cycle if you end up 
+visiting a node that has already been discovered. 
+
+"""
+
+
+# Weighted Graphs
