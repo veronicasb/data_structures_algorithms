@@ -143,13 +143,15 @@ print(graph3)
 
 # GRAPH TRAVERSALS
 
-# Breadth-First Search (BFS)
+# Breadth-First Search (BFS) - search algorithm that visits all nodes at each level
 
 """
 PSEUDOCODE
 
+Main tool: queue - a data structure (list) that follows a FIFO (First In First Out) policy
+
 1. BFS(G, root) where G is a graph and root is the root node of that graph
-2.      create a queue called Q - a queue is a data structure (list) that follows a FIFO (First In First Out) policy
+2.      create a queue called Q
 3.      label root as it is discovered
 4.      Q.enqueue(root) - enqueue is the acti of adding an element to a queue
 5.      while Q is not empty:
@@ -271,4 +273,24 @@ def connected(graph, root=0):
 print(connected(graph4))
 
 
-# Depth-First Search (DFS)
+# Depth-First Search (DFS) - search algorithm that visits each node in a path down to its leaf
+
+"""
+PSEUDOCODE - iterative
+
+Main tool: stack - a data structure that follows a LIFO (Last In First Out) policy
+
+1. dfs_iterative(G, v) where G is a graph and v is a node
+2.      let S be a stack
+3.      S.push(v)
+4.      while S is not empty:
+5.          v = S.pop()
+6.          if v is not labeled as discovered:
+7.              label v as discovered
+8.              for all edges from v to w in G.adjacentEdges(v):
+9.                  S.push(w)
+
+"""
+
+def dfs_iterative(graph, root):
+    pass
