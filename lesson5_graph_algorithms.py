@@ -57,7 +57,6 @@ class GraphList:
             # insert into proper lists
             self.data[n1].append(n2)
             self.data[n2].append(n1)
-        print(self.data)
 
     def add_edge(self, edge):
         # add new edge to our edges list
@@ -100,10 +99,10 @@ class GraphList:
         return self.__repr__()
     
 graph2 = GraphList(num_nodes, edges)
-# print(graph2)
+print(graph2)
 
 graph2.add_edge((5, 6))
-# print(graph2)
+print(graph2)
 
 graph2.remove_edge((5, 6))
 print(graph2)
@@ -310,7 +309,7 @@ def dfs_iterative(graph, root):
             for node in graph.data[current]:
                 stack.append(node)
 
-    return result
+    return f"DFS of {root}: {result}"
 
 print(dfs_iterative(graph2, 3))
 
@@ -333,4 +332,67 @@ visiting a node that has already been discovered.
 """
 
 
-# Weighted Graphs
+# Weighted Graphs - graph with weights associated with edges
+
+num_nodes3 = 9
+# 3rd element in each set represents the weight of the edge
+edges3 = [(0, 1, 3), (0, 3, 2), (0, 8, 4), (1, 7, 4), (2, 7, 2), (2, 3, 6), (2, 5, 1), (3, 4, 1), (4, 8, 8), (5, 6, 8)]
+
+
+# Directed Graphs - graph with directions associates with edges
+
+num_nodes4 = 5
+# when creating adjacency lists, nodes will not point to each other like we saw in the first example
+edges4 = [(0, 1), (1, 2), (2, 3), (2, 4), (4, 2), (3, 0)]
+directed4 = True
+
+# Write a class to represent weighted and directed graphs
+
+class GraphWeightDirect:
+    def __init__(self, num_nodes, edges, directed=False, weighted=False):
+        self.num_nodes = num_nodes
+        self.edges = edges
+        self.directed = directed
+        self.weighted = weighted
+
+        # create an empty adjacency list
+        self.data = [[] for _ in range(self.num_nodes)]
+
+        # create an empty list that will store the weights corresponding to the nodes in the adjacency list
+        self.weight = [[] for _ in range(self.num_nodes)]
+
+        for edge in self.edges:
+            if self.weighted:
+                n1, n2, weight = edge
+                self.data[n1].append(n2)
+                self.weight[n1].append(weight)
+                if not self.directed:
+                    self.data[n2].append(n1)
+                    self.weight[n2].append(weight)
+            else:
+                n1, n2 = edge
+                self.data[n1].append(n2)
+                if not self.directed:
+                    self.data[n2].append(n1)
+
+    def __repr__(self):
+        status = "UNDIRECTED, "
+        status = "DIRECTED, " if self.directed else status
+            
+        if self.weighted:
+            status += "WEIGHTED"
+            # zip allows you to aggregate elements from multiple iterables; returns an iterator containing tuples of corresponding elements
+            return f"{status}\n" + "\n".join((f"{x}: {list(zip(y, z))}") for x, (y, z) in enumerate(zip(self.data, self.weight)))
+        else:
+            status += "UNWEIGHTED"
+            return f"{status}\n" + "\n".join((f"{x}: {y}") for x, y in enumerate(self.data))
+    
+    def __str__(self):
+        return self.__repr__()
+
+weighted_graph1 = GraphWeightDirect(num_nodes3, edges3, weighted=True)
+print(weighted_graph1)
+
+directed_graph1 = GraphWeightDirect(num_nodes4, edges4, directed=True)
+print(directed_graph1)
+                
