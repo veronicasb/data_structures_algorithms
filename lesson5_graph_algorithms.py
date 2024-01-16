@@ -396,3 +396,33 @@ print(weighted_graph1)
 directed_graph1 = GraphWeightDirect(num_nodes4, edges4, directed=True)
 print(directed_graph1)
                 
+
+# Shortest Path
+
+"""
+DIJKSTRA'S ALGORITHM - find the shortest path (in terms of weight, not number of nodes) in a graph
+
+1. Mark all nodes as unvisited. Create a set of unvisited nodes.
+2. Assign to all nodes a tentative distance value: set it to 0 for our initial node and infinity for all other nodes.
+Set initial node as current.
+3. For the current node, consider all of its unvisited neighbors and calculate their tentative distance through current node. 
+
+4.
+5.
+
+"""
+
+"""
+A function to find the length of the shortest path between two nodes in a weighted directed graph.
+
+Input:
+1. graph -  a weighted, directed graph object
+2. source - a source node
+
+Output:
+1. 
+
+"""
+
+def shortest_path(graph, source):
+    pass
