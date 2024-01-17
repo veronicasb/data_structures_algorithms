@@ -400,29 +400,39 @@ print(directed_graph1)
 # Shortest Path
 
 """
-DIJKSTRA'S ALGORITHM - find the shortest path (in terms of weight, not number of nodes) in a graph
+Understanding whether a graph is weighted or unweighted is key in choosing the best approach. 
 
-1. Mark all nodes as unvisited. Create a set of unvisited nodes.
+The "shortest path" of a graph with NO weights (AKA path with the lowest number of nodes) can be found using BFS. 
+Otherwise, if your graph has weights (doesn't matter if it's a directed or undirected graph), 
+then DIJKSTRA'S ALGORITHM is your best bet. 
+
+DIJKSTRA'S ALGORITHM (FOR UNDIRECTED GRAPHS)- find the shortest path (in terms of weight, not number of nodes) in a graph
+
+1.Mark all nodes as unvisited. Create a set of unvisited nodes. 
+
 2. Assign to all nodes a tentative distance value: set it to 0 for our initial node and infinity for all other nodes.
 Set initial node as current.
-3. For the current node, consider all of its unvisited neighbors and calculate their tentative distance through current node. 
 
-4.
-5.
+3. For the current node, consider all of its unvisited neighbors and calculate their tentative distance through the current node. 
+Compare newly calculated tentative distance to the current assigned value and assign the smaller one. 
 
-"""
+4. When we are done considering all of the unvisited neighbors of the current node, mark the current node as visited and 
+remove it from the unvisited set. A visited node should not be checked again.
 
-"""
-A function to find the length of the shortest path between two nodes in a weighted directed graph.
+5. If the destination node has been marked visited while planning a route between two specific nodes or if the smallest 
+tentative distance amon the nodes in the unvisited set is infinity while planning a complete travesal (this occurs when 
+there is no connected between the initial node and remaining unvisited nodes), then stop. The algorithm is complete.
 
-Input:
-1. graph -  a weighted, directed graph object
-2. source - a source node
-
-Output:
-1. 
+6. Otherwise, select the unvisited node that is marked with the smallest tentative distance, set it as the new current node, 
+then go back to step 3.
 
 """
 
-def shortest_path(graph, source):
+def shortest_path(graph, source, target):
+    pass
+
+def update_distances(graph, current, distance, parent=None):
+    pass
+
+def pick_next_node(distance, visited):
     pass
