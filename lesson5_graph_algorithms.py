@@ -400,7 +400,8 @@ print(directed_graph1)
 # Shortest Path
 
 """
-Understanding whether a graph is weighted or unweighted is key in choosing the best approach. 
+Understanding whether a graph is weighted or unweighted is key in choosing the best approach. The Shortest Path approach 
+can be performed on directed or undirected graphs.
 
 The "shortest path" of a graph with NO weights (AKA path with the lowest number of nodes) can be found using BFS. 
 Otherwise, if your graph has weights (doesn't matter if it's a directed or undirected graph), 
@@ -416,11 +417,11 @@ Set initial node as current.
 3. For the current node, consider all of its unvisited neighbors and calculate their tentative distance through the current node. 
 Compare newly calculated tentative distance to the current assigned value and assign the smaller one. 
 
-4. When we are done considering all of the unvisited neighbors of the current node, mark the current node as visited and 
-remove it from the unvisited set. A visited node should not be checked again.
+4. When we are done considering all of the unvisited neighbors of the current node and calculating distances, mark the 
+current node as visited and remove it from the unvisited set. A visited node should not be checked again.
 
 5. If the destination node has been marked visited while planning a route between two specific nodes or if the smallest 
-tentative distance amon the nodes in the unvisited set is infinity while planning a complete travesal (this occurs when 
+tentative distance among the nodes in the unvisited set is infinity while planning a complete travesal (this occurs when 
 there is no connected between the initial node and remaining unvisited nodes), then stop. The algorithm is complete.
 
 6. Otherwise, select the unvisited node that is marked with the smallest tentative distance, set it as the new current node, 
@@ -429,10 +430,79 @@ then go back to step 3.
 """
 
 def shortest_path(graph, source, target):
-    pass
+    visited = [False] * len(graph.data)
+
+    # this variable allows us to track the path of the shortest path
+    parent = [None] * len(graph.data)
+
+    distance = [float('inf')] * len(graph.data)
+    queue = []
+
+    distance[source] = 0
+    queue.append(source)
+    idx = 0
+
+    while idx < len(queue) and not visited[target]:
+        current = queue[idx]
+        visited[current] = True
+        idx += 1
+
+        # update distances of all neighbors
+        update_distances(graph, current, distance, parent)
+
+        # find first unvisited node with the smallest distance/weight
+        next_node = pick_next_node(distance, visited)
+        if next_node:
+            queue.append(next_node)   
+
+        visited[current] = True
+
+    # CHALLENGE: display the actual path of nodes taken to get to target
+    path_nodes = [target]
+    idx2 = target
+    while parent[idx2]:
+        path_nodes.append(parent[idx2])
+        idx2 = parent[idx2]
+    
+    actual_path = " -> ".join(str(node) for node in path_nodes[::-1])
+
+    return distance[target], actual_path
+
 
 def update_distances(graph, current, distance, parent=None):
-    pass
+    # Update the distance of the current node's neighbors
+    neighbors = graph.data[current]
+    weights = graph.weight[current]
+    for i, node in enumerate(neighbors):
+        weight = weights[i]
+        if distance[current] + weight < distance[node]:
+            distance[node] = distance[current] + weight
+            if parent:
+                parent[node] = current 
+
 
 def pick_next_node(distance, visited):
-    pass
+    # Pick the next unvisited node at the smallest distance
+    min_distance = float('inf')
+    min_node = None
+    for node in range(len(distance)):
+        if not visited[node] and distance[node] < min_distance:
+            min_node = node
+            min_distance = distance[node]
+    return min_node
+
+
+num_nodes5 = 6
+edges5 = [(0, 1, 4), (0, 2, 2), (1, 2, 5), (1, 3, 10), (2, 4, 3), (3, 5, 11), (4, 3, 4)]
+
+graph5 = GraphWeightDirect(num_nodes5, edges5, weighted=True, directed=True)
+print(graph5)
+
+print(f'Shortest Path: {shortest_path(graph5, 0, 5)}')
+
+graph6 = GraphWeightDirect(num_nodes3, edges3, weighted=True)
+print(graph6)
+
+print(f'Shortest Path: {shortest_path(graph6, 0, 7)}')
+
+print(f'Shortest Path: {shortest_path(graph6, 2, 8)}')
