@@ -43,7 +43,73 @@ def rotated_list(rotated_ls):
 
 # COME UP WITH EXAMPLE INPUTS AND OUTPUTS. TRY TO COVER EDGE CASES.
 
+"""
+1. A generic case - list of size 10 rotated 3 times.
+2. A generic case - list of size 8 rotated 5 times.
+3. A list that wasn't rotated at all.
+4. A list that was rotated once.
+5. A list that was rotated n-1 times, where n is the size of the list.
+6. A list that was rotated n times - get back the original list?
+7. An empty list.
+8. A list with 1 element.
+
+"""
+
+# create test cases of the above examples
+
+t1 = {
+    "input": {
+        "rotated_ls": [7, 1, 9, 2, 6, 5, 3, 0, 11, 23]
+    }, 
+    "output": 3}
+
+t2 = {
+    "input": {
+        "rotated_ls": [3, 32, 8, 46, 1, 6, 0, 10]
+    }, 
+    "output": 5}
+
+t3 = {
+    "input": {
+        "rotated_ls": [65, 1, 7, 43]
+    }, 
+    "output": 0}
+
+t4 = {
+    "input": {
+        "rotated_ls": [34, 9, 1, 89, 23, 12, 3]
+    }, 
+    "output": 1}
+
+t5 = {
+    "input": {
+        "rotated_ls": [1, 56, 23, 7, 8, 43]
+    }, 
+    "output": 5}
+
+t6 = {
+    "input": {
+        "rotated_ls": [34, 9, 13, 4, 10, 0]
+    }, 
+    "output": 6}
+
+t7 = {
+    "input": {
+        "rotated_ls": []
+    }, 
+    "output": 0}
+
+t8 = {
+    "input": {
+        "rotated_ls": [4]
+    }, 
+    "output": 0}
+
+tests = [t1, t2, t3, t4, t5, t6, t7, t8]
+
+
 # COME UP WITH A CORRECT SOLUTION. STATE IT IN PLAIN ENGLISH.
+
 
 # IMPLEMENT THE SOLUTION AND TEST IT USING EXAMPLE INPUTS. FIX BUGS.
 
