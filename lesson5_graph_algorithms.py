@@ -183,12 +183,14 @@ def bfs(graph, root):
     # Python doesnt support a dequeue operation by default, so we'll track indexes
     idx = 0
 
+    # main loop (may happen up to N times)
     while idx < len(queue):
         # dequeue
         current = queue[idx]
         idx += 1
 
         # check all edges of current
+        # secondary loop (may happen up to 2M times where M is number of edges - we multiply by 2 because edges are undirected)
         for node in graph.data[current]:
             if not discovered[node]:
                 # tracking distance
@@ -205,6 +207,17 @@ def bfs(graph, root):
 # lets use graph2 for testing
 
 print(bfs(graph2, 3))
+
+"""
+(WORST CASE) COMPLEXITY ANALYSIS OF BFS
+
+O(N + M) where N is the total number of vertices (nodes) and M is the number of edges.
+
+main while loop = may happen up to N times where N is number of nodes
+    secondary for loop = may happen up to 2M times where M is number of edges, but we can reduce this to M 
+
+"""
+
 
 """
 CHALLENGE: Write a function to check if all nodes are connected (using BFS). Also, check how many connected 
@@ -312,6 +325,17 @@ def dfs_iterative(graph, root):
     return f"DFS of {root}: {result}"
 
 print(dfs_iterative(graph2, 3))
+
+"""
+(WORST CASE) COMPLEXITY ANALYSIS OF DFS - same as BFS
+
+O(N + M) where N is the total number of vertices (nodes) and M is the number of edges.
+
+main while loop = may happen up to N times where N is number of nodes
+    secondary for loop = may happen up to 2M times where M is number of edges, but we can reduce this to M 
+
+"""
+
 
 """
 CHALLENGE: Recreate the DFS function recursively.
@@ -506,3 +530,37 @@ print(graph6)
 print(f'Shortest Path: {shortest_path(graph6, 0, 7)}')
 
 print(f'Shortest Path: {shortest_path(graph6, 2, 8)}')
+
+"""
+COMPLEXITY ANALYSIS OF SHORTEST PATH
+
+(Worst Case -> Best Case, where v is number of vertices (nodes) and e is number of edges)
+
+With adjacency list and priority queue: 
+O(e log v) is our worst-case scenario -> O((v + e) log v) 
+
+With adjacency matrix and priority queue:
+e ~ v^2 which means O(v^2 + e log v) can be reduced to O(e + e log v) which can be reduced to O(e log v).
+O(e log v) is our worst-case scenario
+->
+O(v^2 + e log v) is our best-case scenario
+
+With Fibonacci Heap and adjacency list:
+O(e + v log v)
+
+"""
+
+# Shortest Path/DIJKSTRA'S ALGORITHM is rarer in interviews than the previous concepts
+
+# Using Fibonacci Heap approach to Shortest path is especially advanced
+
+"""
+CHALLENGE: Implement Dijkstra's Shortest path algorithm using Python's heap module. Then, analyze its complexity.
+
+Heap Operations:
+insertion - O(logN)
+min/max - O(1)
+deletion - O(logN)
+convert list to heap - O(n)
+
+"""
