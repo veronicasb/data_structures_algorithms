@@ -22,8 +22,8 @@ first element.
 # STATE PROBLEM CLEARLY. IDENTIFY INPUT AND OUTPUT FORMATS.
 
 """
-A function that takes a rotated list, then counts the minimum number of times a sorted list 
-had to be rotated to result in that given rotated list.
+A function that takes a rotated list, then counts the minimum number of times it was rotated 
+from its original sequence.
 
 Inputs:
 1. rotated_ls - a rotated list (ex. [5, 6, 9, 0, 2, 3, 4] )
@@ -59,37 +59,37 @@ def rotated_list(rotated_ls):
 
 t1 = {
     "input": {
-        "rotated_ls": [7, 1, 9, 2, 6, 5, 3, 0, 11, 23]
+        "rotated_ls": [7, 8, 9, 0, 1, 2, 3, 4, 5, 6]
     }, 
     "output": 3}
 
 t2 = {
     "input": {
-        "rotated_ls": [3, 32, 8, 46, 1, 6, 0, 10]
+        "rotated_ls": [3, 4, 5, 6, 7, 0, 1, 2]
     }, 
     "output": 5}
 
 t3 = {
     "input": {
-        "rotated_ls": [65, 1, 7, 43]
+        "rotated_ls": [0, 1, 2, 3]
     }, 
     "output": 0}
 
 t4 = {
     "input": {
-        "rotated_ls": [34, 9, 1, 89, 23, 12, 3]
+        "rotated_ls": [5, 0, 1, 2, 3, 4]
     }, 
     "output": 1}
 
 t5 = {
     "input": {
-        "rotated_ls": [1, 56, 23, 7, 8, 43]
+        "rotated_ls": [1, 2, 3, 4, 5, 6, 7, 0]
     }, 
-    "output": 5}
+    "output": 7}
 
 t6 = {
     "input": {
-        "rotated_ls": [34, 9, 13, 4, 10, 0]
+        "rotated_ls": [0, 1, 2, 3, 4, 5]
     }, 
     "output": 6}
 
@@ -110,8 +110,60 @@ tests = [t1, t2, t3, t4, t5, t6, t7, t8]
 
 # COME UP WITH A CORRECT SOLUTION. STATE IT IN PLAIN ENGLISH.
 
+"""
+My guess:
+
+1. Take the given rotated list and identify its last element
+2. Iterate over original sorted list until the number of the last element in the 
+given rotated list is found
+3. Take the index of the element found in the original sorted list, then count 
+the distance between the index and the end of the list.
+4. Return count
+
+This algorithm wouldn't work because we aren't actually given the original sorted list 
+at any point. The only information we have is the rotated list and the fact that its
+original sequence would be in ascending sorted order.
+
+
+2nd guess:
+
+1. Iterate over given rotated list
+2. If we find an element that is lesser in value than the element that came before it, 
+set it as our target
+2a. Calculate the number of rotations using (lenth of rotated list) - (index of our target + 1)
+2b. Return calculation
+3. Otherwise, keep iterating over list until target is found or until end
+4. Return 0 if no target is found
+
+
+This algorithm works easily because our target becomes obvious as the element that is smaller than 
+the element that comes before it. Then, we can count the number of jumps from our target 
+to the end of the list using a simple calculation, which ends up being our answer. 
+
+
+Correct solution:
+
+1. Iterate over given rotated list using while loop
+2. If we find an element that is lesser in value than the element that came before it, 
+return its index - this is the answer.
+3. Otherwise, return 0 (target was never found)
+
+"""
 
 # IMPLEMENT THE SOLUTION AND TEST IT USING EXAMPLE INPUTS. FIX BUGS.
+
+def rotated_list(rotated_ls):
+    i = 0
+    while i < len(rotated_ls):
+        if rotated_ls[i] < rotated_ls[i - 1]:
+            return i
+        i += 1
+    return 0
+
+for test in tests:
+    print(rotated_list(test["input"]["rotated_ls"]))
+    print(test["output"], "\n")
+
 
 # ANALYZE THE ALGORITHMS COMPLEXITY AND IDENTIFY INEFFICIENCIES.
 
