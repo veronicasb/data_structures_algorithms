@@ -156,7 +156,7 @@ print(tests)
 
 # start with function signature produced in step 1
 
-"""
+# linear search
 def locate_card(cards, num):
     # create variable with value of 0
     position = 0
@@ -184,34 +184,28 @@ def locate_card(cards, num):
 
     # number not found, return -1
     return -1
-"""
+
 
 # test function using test cases produced in step 2
 
-"""
 result = locate_card(tests[0]['input']['cards'], tests[0]['input']['num'])
 print(result)
 print(result == tests[0]['output'])
 
 evaluate_test_cases(locate_card, tests)
 
-"""
-
 # code with the assumption that your code will be wrong
 
-"""
 cards6 = tests[6]['input']['cards']
 query6 = tests[6]['input']['num']
 locate_cards(cards6, query6)
 
-"""
-
 # we see that the issue is that the cards list is empty
 # print statements are a more effective way to debug
 
-"""
+
 evaluate_test_cases(locate_card, tests)
-"""
+
 
 # everytime you make changes to code, you want to test all cases again
 
@@ -220,6 +214,7 @@ in real interviews, it's best to skip implementing and testing brute force solut
 because it's easy to determine its complexity in plain english. However, brute force solutions
 are best for practice/study - in case youre not able to figure out the optimal solution, you can still
 implement the brute force solution, which is acceptable
+
 """
 
 ###

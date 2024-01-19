@@ -1,3 +1,4 @@
+from jovian.pythondsa import evaluate_test_cases
 
 """
 PROBLEM
@@ -19,7 +20,7 @@ first element.
 """
 
 
-# STATE PROBLEM CLEARLY. IDENTIFY INPUT AND OUTPUT FORMATS.
+# 1. STATE PROBLEM CLEARLY. IDENTIFY INPUT AND OUTPUT FORMATS.
 
 """
 A function that takes a rotated list, then counts the minimum number of times it was rotated 
@@ -41,7 +42,7 @@ def rotated_list(rotated_ls):
     pass
 
 
-# COME UP WITH EXAMPLE INPUTS AND OUTPUTS. TRY TO COVER EDGE CASES.
+# 2. COME UP WITH EXAMPLE INPUTS AND OUTPUTS. TRY TO COVER EDGE CASES.
 
 """
 1. A generic case - list of size 10 rotated 3 times.
@@ -108,7 +109,7 @@ t8 = {
 tests = [t1, t2, t3, t4, t5, t6, t7, t8]
 
 
-# COME UP WITH A CORRECT SOLUTION. STATE IT IN PLAIN ENGLISH.
+# 3. COME UP WITH A CORRECT SOLUTION. STATE IT IN PLAIN ENGLISH.
 
 """
 My guess:
@@ -141,7 +142,7 @@ the element that comes before it. Then, we can count the number of jumps from ou
 to the end of the list using a simple calculation, which ends up being our answer. 
 
 
-Correct solution:
+Correct solution: Linear Search
 
 1. Iterate over given rotated list using while loop
 2. If we find an element that is lesser in value than the element that came before it, 
@@ -150,7 +151,7 @@ return its index - this is the answer.
 
 """
 
-# IMPLEMENT THE SOLUTION AND TEST IT USING EXAMPLE INPUTS. FIX BUGS.
+# 4. IMPLEMENT THE SOLUTION AND TEST IT USING EXAMPLE INPUTS. FIX BUGS.
 
 def rotated_list(rotated_ls):
     i = 0
@@ -164,7 +165,39 @@ for test in tests:
     print(rotated_list(test["input"]["rotated_ls"]))
     print(test["output"], "\n")
 
+results = evaluate_test_cases(rotated_list, tests)
 
-# ANALYZE THE ALGORITHMS COMPLEXITY AND IDENTIFY INEFFICIENCIES.
 
-# APPLY RIGHT TECHNIQUE TO OVERCOME INEFFICIENCY. REPEAT STEPS 3 - 6.
+# 5. ANALYZE THE ALGORITHMS COMPLEXITY AND IDENTIFY INEFFICIENCIES.
+
+"""
+The algorithm we're using is Linear Search, so our worst-case scenario is that 
+we end up iterating through an entire list before we find our answer. This equates 
+to a complexity of O(N), where N is the length of the rotated list that we're given. 
+
+Our best-case scenario would be that we find our answer at the first index. This 
+would equate to a complexity of O(1). 
+
+Worst --> Best: Linear Search
+O(N) --> O(1)
+
+"""
+
+
+# 6. APPLY RIGHT TECHNIQUE TO OVERCOME INEFFICIENCY. REPEAT STEPS 3 - 6.
+
+"""
+We can drastically improve upon Linear Search using Binary Search. 
+
+"""
+
+# 7. REPEAT STEP 3 (COME UP WITH CORRECT SOLUTION STATED IN PLAIN ENGLISH)
+
+"""
+Correct solution: Binary Search
+
+1. 
+2.
+
+
+"""
