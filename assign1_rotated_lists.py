@@ -151,6 +151,7 @@ return its index - this is the answer.
 
 """
 
+
 # 4. IMPLEMENT THE SOLUTION AND TEST IT USING EXAMPLE INPUTS. FIX BUGS.
 
 def rotated_list(rotated_ls):
@@ -191,13 +192,41 @@ We can drastically improve upon Linear Search using Binary Search.
 
 """
 
+
 # 7. REPEAT STEP 3 (COME UP WITH CORRECT SOLUTION STATED IN PLAIN ENGLISH)
 
 """
 Correct solution: Binary Search
 
-1. 
-2.
-
+Algorithm in my words...
+0. Set the highest and lowest index of our list
+1. While lowest point is less than highest point, find the middle point of the given list
+2. If the middle point is our answer, return it
+2a. If answer isnt middle point, check the left half and return the answer
+2b. If answer isnt in the left half, check the right half and return the answer
+3. Return 0 if answer isnt found
 
 """
+
+
+# 8. REPEAT STEP 4 (IMPLEMENT THE CORRECT SOLUTION)
+
+def rotated_ls_binary(rotated_ls):
+    low, high = 0, len(rotated_ls) - 1
+    
+    while low <= high:
+        mid = (high + low) // 2
+        mid_element = rotated_ls[mid]
+        if mid_element < rotated_ls[mid - 1]:
+            return mid
+        elif mid_element > rotated_ls[mid - 1]:
+            high = mid - 1
+        else:
+            low = mid + 1
+
+    return 0
+
+binary_result = evaluate_test_cases(rotated_ls_binary, tests)
+
+
+# 9. REPEAT STEP 5 (ANALYZE COMPLEXITY)
