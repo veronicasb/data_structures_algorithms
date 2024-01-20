@@ -179,8 +179,8 @@ to a complexity of O(N), where N is the length of the rotated list that we're gi
 Our best-case scenario would be that we find our answer at the first index. This 
 would equate to a complexity of O(1). 
 
-Worst --> Best: Linear Search
-O(N) --> O(1)
+Worst --> Average --> Best: Linear Search
+O(N) --> O(N) --> O(1)
 
 """
 
@@ -230,3 +230,16 @@ binary_result = evaluate_test_cases(rotated_ls_binary, tests)
 
 
 # 9. REPEAT STEP 5 (ANALYZE COMPLEXITY)
+
+"""
+The algorithm we're using is Binary Search, so our worst-case scenario is that our 
+target is in the first position of our list. This equates to a complexity of 
+O(log N), where N is the length of the rotated list that we're given. 
+
+Our best-case scenario would be that we find our answer at the middle point. This 
+would equate to a complexity of O(1). 
+
+Worst --> Average --> Best: Binary Search
+O(log N) --> O(log N) --> O(1)
+
+"""
