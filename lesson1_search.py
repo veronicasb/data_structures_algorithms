@@ -292,7 +292,7 @@ def binary_search(low, high, condition):
     return -1
 
 
-# take generic algorith and re-write our function
+# take generic algorithm and re-write our function
 # a function inside of a function is called "function closure"
 def locate_card(cards, num):
     def condition(mid):

@@ -243,3 +243,41 @@ Worst --> Average --> Best: Binary Search
 O(log N) --> O(log N) --> O(1)
 
 """
+
+
+# BONUS 1 - IMPLEMENT ROTATED_LS_BINARY USING THE GENERIC BINARY SEARCH FUNCTION
+
+# The generic version of Binary Search
+
+def binary_search(low, high, condition):
+    while low <= high:
+        middle = (low + high) // 2
+        result = condition(middle)
+        if result == "found":
+            return middle
+        elif result == "left":
+            high = middle - 1
+        else:
+            low = middle + 1
+    return 0
+
+# Rewrite function using generic version
+
+def rotated_ls_binary_generic(rotated_ls):
+    def condition(mid):
+        if rotated_ls[mid] < rotated_ls[mid - 1]:
+            return "found"
+        elif rotated_ls[mid] > rotated_ls[mid - 1]:
+            return "left"
+        else:
+            return "right"
+
+    return binary_search(0, (len(rotated_ls) - 1), condition)
+
+evaluate_test_cases(rotated_ls_binary_generic, tests)
+
+
+# BONUS 2
+
+
+# BONUS 3
