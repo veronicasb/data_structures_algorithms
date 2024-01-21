@@ -289,8 +289,10 @@ repeating_t1 = {
     "input": {
         "rotated_ls": [5, 6, 6, 9, 9, 9, 0, 0, 2, 3, 3, 3, 3, 4, 4]
     },
-    "output": 8
+    "output": 6
 }
+
+extended_test.append(repeating_t1)
 
 repeating_t2 = {
     "input": {
@@ -299,7 +301,7 @@ repeating_t2 = {
     "output": 3
 }
 
-extended_test.append([repeating_t1, repeating_t2])
+extended_test.append(repeating_t2)
 
 # Modify generic Binary Search solution to handle repeating elements
 
@@ -321,14 +323,14 @@ def rotated_ls_binary_generic(rotated_ls):
             return "found"
         elif rotated_ls[mid] > rotated_ls[mid - 1]:
             return "left"
-        else:
+        elif rotated_ls[mid] == rotated_ls[mid - 1]:
             return "right"
 
     return binary_search(0, (len(rotated_ls) - 1), condition)
 
 # Test
 
-evaluate_test_cases(rotated_ls_binary_generic, tests)
+evaluate_test_cases(rotated_ls_binary_generic, extended_test)
 
 
 # BONUS 3 - FIND POSITION OF TARGET NUMBER WITHIN ROTATED LIST
