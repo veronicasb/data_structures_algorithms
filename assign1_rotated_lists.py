@@ -274,10 +274,114 @@ def rotated_ls_binary_generic(rotated_ls):
 
     return binary_search(0, (len(rotated_ls) - 1), condition)
 
+# Test
+
 evaluate_test_cases(rotated_ls_binary_generic, tests)
 
 
-# BONUS 2
+# BONUS 2 - HANDLING REPEATING NUMBERS
+
+# Add test cases that include repeating numbers
+
+extended_test = list(tests)
+
+repeating_t1 = {
+    "input": {
+        "rotated_ls": [5, 6, 6, 9, 9, 9, 0, 0, 2, 3, 3, 3, 3, 4, 4]
+    },
+    "output": 8
+}
+
+repeating_t2 = {
+    "input": {
+        "rotated_ls": [3, 4, 4, 0, 1, 2, 2]
+    },
+    "output": 3
+}
+
+extended_test.append([repeating_t1, repeating_t2])
+
+# Modify generic Binary Search solution to handle repeating elements
+
+def binary_search(low, high, condition):
+    while low <= high:
+        middle = (low + high) // 2
+        result = condition(middle)
+        if result == "found":
+            return middle
+        elif result == "left":
+            high = middle - 1
+        else:
+            low = middle + 1
+    return 0
+
+def rotated_ls_binary_generic(rotated_ls):
+    def condition(mid):
+        if rotated_ls[mid] < rotated_ls[mid - 1]:
+            return "found"
+        elif rotated_ls[mid] > rotated_ls[mid - 1]:
+            return "left"
+        else:
+            return "right"
+
+    return binary_search(0, (len(rotated_ls) - 1), condition)
+
+# Test
+
+evaluate_test_cases(rotated_ls_binary_generic, tests)
 
 
-# BONUS 3
+# BONUS 3 - FIND POSITION OF TARGET NUMBER WITHIN ROTATED LIST
+
+# Add test cases that include targets
+
+# Generic test case 
+search_test1 = {
+    "input": {
+        "rotated_ls": [5, 6, 9, 0, 2, 3, 4],
+        "target": 2
+    }, 
+    "output": 5
+}
+
+# Generic test case
+search_test2 = {
+    "input": {
+        "rotated_ls": [6, 7, 0, 1, 2, 3, 4, 5],
+        "target": 4
+    }, 
+    "output": 7
+}
+
+# A list with repeating elements
+search_test3 = {
+    "input": {
+        "rotated_ls": [6, 7, 7, 0, 1, 2, 3, 4, 5, 5],
+        "target": 4
+    }, 
+    "output": 7
+}
+
+# A list with no elements 
+search_test4 = {
+    "input": {
+        "rotated_ls": [],
+        "target": 9
+    }, 
+    "output": -1
+}
+
+# A list where our target doesnt exist
+search_test5 = {
+    "input": {
+        "rotated_ls": [23, 0, 4, 8, 10],
+        "target": 2
+    }, 
+    "output": -1
+}
+
+search_test = [search_test1, search_test2, search_test3, search_test4, search_test5]
+
+# Modify binary algorithm (not generic) to search for target 
+
+# Test
