@@ -361,7 +361,7 @@ search_test3 = {
         "rotated_ls": [6, 7, 7, 0, 1, 2, 3, 4, 5, 5],
         "target": 4
     }, 
-    "output": 7
+    "output": 8
 }
 
 # A list with no elements 
@@ -382,8 +382,42 @@ search_test5 = {
     "output": -1
 }
 
-search_test = [search_test1, search_test2, search_test3, search_test4, search_test5]
+search_tests = [search_test1, search_test2, search_test3, search_test4, search_test5]
 
 # Modify binary algorithm (not generic) to search for target 
 
+"""
+ALGO IN PLAIN ENGLISH
+
+1. Sort list to its original sequence and track number of rotations
+2. Perform binary search on list until target is found
+3. return position of target (index + 1) + number of elements moved
+
+"""
+
+def rotated_ls_target(rotated_ls, target):
+    if not rotated_ls:
+        return -1
+    start = min(rotated_ls)
+    rotations = rotated_ls.index(start)
+    original_ls = sorted(list(rotated_ls))
+
+    low, high = 0, len(original_ls) - 1
+    
+    while low <= high:
+        mid = (high + low) // 2
+        mid_element = original_ls[mid]
+        if mid_element == target:
+            return (mid + rotations + 1)
+        elif target < mid_element:
+            high = mid - 1
+        elif target > mid_element:
+            low = mid + 1
+
+    return -1
+
 # Test
+
+target_result = evaluate_test_cases(rotated_ls_target, search_tests)
+
+
