@@ -51,14 +51,57 @@ ALGORITHM FOR HASHING - CONVERT STRINGS INTO NUMERIC LIST INDICES
 """
 
 def get_index(data_list, a_string):
+    # Variable to store the result (updated after each iteration)
     result = 0
 
     for char in a_string:
-        num = 
+        # Convert the character to a number (using ord)
+        num = ord(char)
+        # Update result by adding the number
+        result += num
 
-        result += 1
-
-    index = result %
+    # Take the remainder of the result with the size of the data list
+    index = result % len(data_list)
     return index
 
-get_index(data_list, '') == 0 # should output True
+print(get_index(data_list, '') == 0) # should output True
+
+print(get_index(data_list, 'Aakash') == 585)
+
+
+# Insert key_value pair into hash table
+
+key, val = "Veronica", "415415415"
+
+idx = get_index(data_list, key)
+
+print(idx)
+
+data_list[idx] = (key, val)
+
+data_list[get_index(data_list, "Monica")] = ("Monica", "313313313")
+
+
+# Find value associated with a pair - get hash of key and look up index in data list
+
+idx = get_index(data_list, "Veronica")
+
+print(idx)
+
+key, val = data_list[idx]
+
+print(val)
+
+key, val = data_list[get_index(data_list, "Veronica")]
+
+print(val)
+
+
+# List keys using list comprehension
+
+name_keys = [kv[0] for kv in data_list if kv is not None]
+
+print(name_keys)
+
+
+# Basic hash table implementation
