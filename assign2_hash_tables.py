@@ -40,6 +40,9 @@ class HashTable:
         """List all the keys"""
         pass
 
+
+# HASHING FUNCTION
+    
 """
 ALGORITHM FOR HASHING FUNCTION - CONVERT STRINGS INTO NUMERIC LIST INDICES
 
@@ -104,7 +107,7 @@ name_keys = [kv[0] for kv in data_list if kv is not None]
 print(name_keys)
 
 
-# Basic hash table implementation using above hashing function
+# BASIC HASH TABLE IMPLEMENTATION USING HASHING FUNCTION
 
 class BasicHashTable:
     def __init__(self, max_size=MAX_SIZE):
@@ -143,8 +146,7 @@ class BasicHashTable:
         # 1. Extract key from each key-value pair
         return [kv[0] for kv in self.data_list if kv is not None]
     
-
-# Test - output should be "True"
+# Test - outputs should be "True"
     
 basic_table = BasicHashTable(max_size=1024)
 print(len(basic_table.data_list) == 1024)
@@ -164,3 +166,65 @@ print(basic_table.find('Aakash') == '7777777777')
 
 # Get the list of keys
 print(basic_table.list_all() == ['Aakash', 'Hemanth'])
+
+
+# FUNCTION TO HANDLE COLLISIONS USING LINEAR PROBING
+
+"""
+HANDLING COLLISIONS USING LINEAR PROBING
+
+A collision occurs when we try to store data at keys that share the same hash.
+
+1. While inserting a new key-value pair, if the target index is occupied, we try the next 
+index repeatedly until we find the closes empty location
+
+2. While finding a key-value pair, we use the same strategy as above, but instead of searching 
+for an empty location, we look for a location that contains a key-value pair with a matching key 
+
+3. While finding a key-value pair, we use the same strategy as above, but instead of searching 
+for an empty location, we look for a location that contains a key-value pair with a matching key 
+and update its value
+
+"""
+
+def get_valid_index(data_list, key):
+    # Start by getting index
+    idx = get_index(data_list, key)
+
+    while True:
+        # Get key-value stored at idx
+        kv = data_list[idx]
+
+        # If None, return idx
+        if kv is None:
+            return idx
+        
+        # If stored key matches given key, return index
+        k, v = kv
+        if k == key:
+            return idx
+        
+        # Move to next index
+        idx += 1
+
+        # Go back to start if you reach end of array
+        if idx == len(data_list):
+            idx = 0
+
+# Test - output should be True
+
+# Create an empty hash table
+data_list2 = [None] * MAX_SIZE
+
+# New key 'listen' should return expected index
+print(get_valid_index(data_list2, 'listen') == 655)
+
+# Insert a key-value pair for the key 'listen'
+data_list2[get_index(data_list2, 'listen')] = ('listen', 99)
+
+# Colliding key 'silent' should return next index
+print(get_valid_index(data_list2, 'silent') == 656)
+
+
+# IMPLEMENTATION OF HASH TABLE WITH LINEAR PROBING FUNCTION
+
