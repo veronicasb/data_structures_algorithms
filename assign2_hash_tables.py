@@ -41,7 +41,7 @@ class HashTable:
         pass
 
 """
-ALGORITHM FOR HASHING - CONVERT STRINGS INTO NUMERIC LIST INDICES
+ALGORITHM FOR HASHING FUNCTION - CONVERT STRINGS INTO NUMERIC LIST INDICES
 
 1. Iterate over string
 2. Convert each character into a number using "ord" function
@@ -104,4 +104,63 @@ name_keys = [kv[0] for kv in data_list if kv is not None]
 print(name_keys)
 
 
-# Basic hash table implementation
+# Basic hash table implementation using above hashing function
+
+class BasicHashTable:
+    def __init__(self, max_size=MAX_SIZE):
+        # 1. Create list of size 'max_size' with all values set to None
+        self.data_list = [None] * max_size
+
+    def insert(self, key, value):
+        # 1. Find index for key using get_index
+        idx = get_index(self.data_list, key)
+
+        # 2. Store key-value pair at right index
+        self.data_list[idx] = (key, value)
+
+    def find(self, key):
+        # 1. Find index for key using get_index
+        idx = get_index(self.data_list, key)
+
+        # 2. Retrieve data stored at index
+        kv = self.data_list[idx]
+
+        # 3. Return value if found, else return None
+        if kv is None:
+            return None
+        else:
+            key, value = kv
+            return value
+        
+    def update(self, key, value):
+        # 1. Find index for key using get_index
+        idx = get_index(self.data_list, key)
+
+        # 2. Store new key-value pair in right index
+        self.data_list[idx] = (key, value)
+
+    def list_all(self):
+        # 1. Extract key from each key-value pair
+        return [kv[0] for kv in self.data_list if kv is not None]
+    
+
+# Test - output should be "True"
+    
+basic_table = BasicHashTable(max_size=1024)
+print(len(basic_table.data_list) == 1024)
+
+# Insert some values
+basic_table.insert('Aakash', '9999999999')
+basic_table.insert('Hemanth', '8888888888')
+
+# Find a value
+print(basic_table.find('Hemanth') == '8888888888')
+
+# Update a value
+basic_table.update('Aakash', '7777777777')
+
+# Check the updated value
+print(basic_table.find('Aakash') == '7777777777')
+
+# Get the list of keys
+print(basic_table.list_all() == ['Aakash', 'Hemanth'])
