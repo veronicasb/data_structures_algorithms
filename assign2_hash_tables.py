@@ -226,5 +226,66 @@ data_list2[get_index(data_list2, 'listen')] = ('listen', 99)
 print(get_valid_index(data_list2, 'silent') == 656)
 
 
-# IMPLEMENTATION OF HASH TABLE WITH LINEAR PROBING FUNCTION
+# IMPLEMENTATION OF HASH TABLE WITH LINEAR PROBING
 
+class ProbingHashTable:
+    def __init__(self, max_size=MAX_SIZE):
+        # 1. Create a list of size `max_size` with all values None
+        self.data_list = [None] * max_size
+     
+    
+    def insert(self, key, value):
+        # 1. Find the index for the key using get_valid_index
+        idx = get_valid_index(self.data_list, key)
+        
+        # 2. Store the key-value pair at the right index
+        self.data_list[idx] = (key, value)
+    
+    
+    def find(self, key):
+        # 1. Find the index for the key using get_valid_index
+        idx = get_valid_index(self.data_list, key)
+        
+        # 2. Retrieve the data stored at the index
+        kv = self.data_list[idx]
+        
+        # 3. Return the value if found, else return None
+        return None if kv is None else kv[1]
+    
+    
+    def update(self, key, value):
+        # 1. Find the index for the key using get_valid_index
+        idx = get_valid_index(self.data_list, key)
+        
+        # 2. Store the new key-value pair at the right index
+        self.data_list[idx] = (key, value)
+
+    
+    def list_all(self):
+        # 1. Extract the key from each key-value pair 
+        return [kv[0] for kv in self.data_list if kv is not None]
+    
+# Test - outputs should be True
+
+# Create a new hash table
+probing_table = ProbingHashTable()
+
+# Insert a value
+probing_table.insert('listen', 99)
+
+# Check the value
+print(probing_table.find('listen') == 99)
+
+# Insert a colliding key
+probing_table.insert('silent', 200)
+
+# Check the new and old keys
+print(probing_table.find('listen') == 99 and probing_table.find('silent') == 200)
+
+# Update a key
+probing_table.insert('listen', 101)
+
+# Check the value
+print(probing_table.find('listen') == 101)
+
+print(probing_table.list_all() == ['listen', 'silent'])
