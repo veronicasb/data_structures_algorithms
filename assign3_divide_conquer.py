@@ -57,7 +57,7 @@ t2 = {
         "poly1": [2, 0, 5, 7],
         "poly2": []
     },
-    "output": [2, 0, 5, 7]
+    "output": []
 }
 
 t3 = {
@@ -65,7 +65,7 @@ t3 = {
         "poly1": [],
         "poly2": []
     },
-    "output": -1
+    "output": []
 }
 
 t4 = {
@@ -97,7 +97,7 @@ t7 = {
         "poly1": [4, 4, 4],
         "poly2": [4, 4, 4]
     },
-    "output": [16, 0, 16, 0, 16]
+    "output": [16, 32, 48, 32, 16]
 }
 
 t8 = {
@@ -111,9 +111,46 @@ t8 = {
 tests = [t1, t2, t3, t4, t5, t6, t7, t8]
 
 
-# BRAINSTORM CORRECT SOLUTION IN PLAIN ENGLISH
+# STATE CORRECT SOLUTION IN PLAIN ENGLISH
 
-# IMPLEMENT SOLUTIONS AND TEST. FIX BUGS
+"""
+If we have 2 lists of length m and n, the highest degree of exponents we will end up with 
+will equal (m + n - 2) and the length of our resulting list will equal (m + n - 1).
+
+We can set result[k] = sum of all pair poly1[i] * poly2[j] where i+j = k.
+
+1. Initialize list "result" of length (m + n - 1) with 0s
+2. Using "i" as our iterator, iterate over each element in "poly1"
+2a. For each element "i" in poly1, using "j" as our iterator, iterate over each element in "poly2"
+2a.a. Add "i" and "j" to get "k" (the position of our sum of pairs in "result")
+2a.b. Add the product of pairs "poly1[i]" and "poly2[j]" 
+2a.c. Append the result to "result[k]"
+3. Return "result"
+
+"""
+
+
+# IMPLEMENT SOLUTION AND TEST. FIX BUGS
+
+def mulitply_poly(poly1, poly2):
+    if len(poly1) < 1 or len(poly2) < 1:
+        return []
+    
+    result_length = len(poly1) + len(poly2) - 1
+    result = [0] * result_length
+
+    for i in range(len(poly1)):
+
+        for j in range(len(poly2)):
+            k = i + j
+            sum_pairs = poly1[i] * poly2[j]
+            result[k] += sum_pairs
+
+    return result
+
+for test in tests:
+    print(mulitply_poly(test["input"]["poly1"], test["input"]["poly2"]) == test["output"])
+
 
 # ANALYZE ALGORITHM COMPLEXITY AND IDENTIFY INEFFICIENCIES
 
