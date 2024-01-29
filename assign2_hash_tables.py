@@ -289,3 +289,99 @@ probing_table.insert('listen', 101)
 print(probing_table.find('listen') == 101)
 
 print(probing_table.list_all() == ['listen', 'silent'])
+
+
+# PYTHON DICTIONARIES WITH HASH TABLES
+
+"""
+Python has a built-in hash function called "hash" that minimizes the occurrence of 
+collisions.
+
+"""
+
+MAX_HASH_TABLE_SIZE = 4096
+
+class HashTable:
+    def __init__(self, max_size=MAX_HASH_TABLE_SIZE):
+        self.data_list = {}
+        
+    def get_valid_index(self, key):
+        # Use Python's in-built `hash` function and implement linear probing
+        idx = self.hash(key)
+
+        while True:
+        # Get key-value stored at idx
+            kv = self.data_list[idx]
+
+            # If None, return idx
+            if kv is None:
+                return idx
+            
+            # If stored key matches given key, return index
+            k, v = kv
+            if k == key:
+                return idx
+            
+            # Move to next index
+            idx += 1
+
+            # Go back to start if you reach end of array
+            if idx == len(data_list):
+                idx = 0
+    
+    # Getter
+    def __getitem__(self, key):
+        # Implement the logic for "find" here
+        # 1. Find the index for the key using get_valid_index
+        idx = hash(key)
+        
+        # 2. Retrieve the data stored at the index
+        kv = self.data_list[idx]
+        
+        # 3. Return the value if found, else return None
+        return None if kv is None else kv[1]
+    
+    # Setter
+    def __setitem__(self, key, value):
+        # Implement the logic for "insert/update" here
+        # 1. Find the index for the key using get_valid_index
+        idx = hash(key)
+        
+        # 2. Store the new key-value pair at the right index
+        self.data_list[idx] = (key, value)
+    
+    # This element allows us to iterate through our custom object
+    def __iter__(self):
+        return (x for x in self.data_list if x is not None)
+    
+    def __len__(self):
+        return len([x for x in self])
+    
+    def __repr__(self):
+        from textwrap import indent
+        pairs = [indent("{} : {}".format(repr(kv[0]), repr(kv[1])), '  ') for kv in self]
+        return "{\n" + "{}".format(',\n'.join(pairs)) + "\n}"
+    
+    def __str__(self):
+        return repr(self)
+
+# Test
+
+# Create a hash table
+table = HashTable()
+
+# Insert some key-value pairs
+table['a'] = 1
+table['b'] = 34
+
+# Retrieve the inserted values
+print(table['a'] == 1 and table['b'] == 34)
+
+# Update a value
+table['a'] = 99
+
+# Check the updated value
+print(table['a'] == 99)
+
+# Get a list of key-value pairs
+print(list(table))
