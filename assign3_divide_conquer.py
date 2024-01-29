@@ -32,6 +32,85 @@ def mulitply_poly(poly1, poly2):
 
 # BRAINSTORM EXAMPLE INPUTS AND OUTPUTS
 
+"""
+1. a generic case
+2. 1 empty list
+3. 2 empty lists
+4. 1 list with 1 element
+5. 2 lists with 1 element each
+6. 1 list of repeating elements
+7. 2 lists of repeating elements
+8. 1 long list and 1 short list
+
+"""
+
+t1 = {
+    "input": {
+        "poly1": [2, 0, 5, 7],
+        "poly2": [3, 4, 2]
+    },
+    "output": [6, 8, 19, 41, 38, 14]
+}
+
+t2 = {
+    "input": {
+        "poly1": [2, 0, 5, 7],
+        "poly2": []
+    },
+    "output": [2, 0, 5, 7]
+}
+
+t3 = {
+    "input": {
+        "poly1": [],
+        "poly2": []
+    },
+    "output": -1
+}
+
+t4 = {
+    "input": {
+        "poly1": [2, 1, 5, 7],
+        "poly2": [2]
+    },
+    "output": [4, 2, 10, 14]
+}
+
+t5 = {
+    "input": {
+        "poly1": [8],
+        "poly2": [2]
+    },
+    "output": [16]
+}
+
+t6 = {
+    "input": {
+        "poly1": [2, 2, 2, 2],
+        "poly2": [3, 4, 2]
+    },
+    "output": [6, 14, 18, 18, 12, 4]
+}
+
+t7 = {
+    "input": {
+        "poly1": [4, 4, 4],
+        "poly2": [4, 4, 4]
+    },
+    "output": [16, 0, 16, 0, 16]
+}
+
+t8 = {
+    "input": {
+        "poly1": [2, 1, 5, 7, 2, 1, 5, 7],
+        "poly2": [3, 4]
+    },
+    "output": [6, 11, 19, 41, 34, 11, 19, 41, 28]
+}
+
+tests = [t1, t2, t3, t4, t5, t6, t7, t8]
+
+
 # BRAINSTORM CORRECT SOLUTION IN PLAIN ENGLISH
 
 # IMPLEMENT SOLUTIONS AND TEST. FIX BUGS
