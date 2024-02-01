@@ -130,7 +130,7 @@ We can set result[k] = sum of all pair poly1[i] * poly2[j] where i+j = k.
 """
 
 
-# IMPLEMENT SOLUTION AND TEST. FIX BUGS
+# IMPLEMENT SOLUTION AND TEST -> FIX BUGS
 
 def mulitply_poly(poly1, poly2):
     if len(poly1) < 1 or len(poly2) < 1:
@@ -153,5 +153,92 @@ for test in tests:
 
 
 # ANALYZE ALGORITHM COMPLEXITY AND IDENTIFY INEFFICIENCIES
+    
+"""
+Complexity is O(N^2).
+
+"""
+
 
 # OVERCOME INEFFICIENCY. REPEAT 3 - 6
+
+"""
+We can apply the "Divide and Conquer" technique to produce the same results more efficiently. 
+
+"""
+
+
+# STATE NEW SOLUTION IN PLAIN ENGLISH
+
+"""
+DIVIDE
+
+1. Divide poly1 into 2 subproblems (A0, A1)
+2. Divide poly2 into 2 subproblems (B0, B1)
+
+CONQUER
+
+3. Calculate the products of the 4 subproblems (A0*B0, A0*B1, A1*B0, A1*B1) 
+recursively
+
+COMBINE
+
+4. Add the products of the 4 subproblems (the complexity of this step is O(N) - why?)
+
+5. Return the result
+
+"""
+
+
+# IMPLEMENT NEW SOLUTION AND TEST -> FIX BUGS
+
+# Multiply two polynomials
+def add(poly1, poly2):
+    result = [0] * max(len(poly1), len(poly2))
+    for i in range(len(result)):
+        if i < len(poly1):
+            result[i] += poly1[i]
+        if i < len(poly2):
+            result[i] += poly2[i]
+    return result
+
+def increase_exponent(poly, n):
+    return [0] * n + poly
+
+def split(poly1, poly2):
+    """Split each polynomial into two smaller polynomials"""
+    mid = max(len(poly1), len(poly2)) // 2
+    return  (poly1[:mid], poly1[mid:]), (poly2[:mid], poly2[mid:])
+
+def multiply(p,q):
+    n = len(p) + len(q) - 2
+    m = n//2
+    if len(p)==1: 
+        res = []
+        return res
+    else:
+        a,b = split(p, q)
+        a0, a1, b0, b1 = a[0], a[1], b[0], b[1] 
+
+        y=multiply(add(a0,a1),add(b0,b1))
+        u=multiply(a0,b0)
+        z=multiply(a1,b1)
+        diff = add(y,[(-1 * x) for x in add(u,z)])
+        add1 = add(u, increase_exponent(diff,m))
+        add2 = increase_exponent(z,n)
+        return add(add1, add2)
+      
+
+# Test
+print(multiply(t1["input"]["poly1"], t1["input"]["poly2"]))
+
+# ANALYZE COMPLEXITY
+
+"""
+The complexity of the "Divide and Conquer" algorithm using 4 subproblems is O(N^2), the same 
+as our brute force solution.
+
+However, if we implement the algorithm using 3 subproblems, this reduces our complexity to 
+O(N^log3).
+
+"""
