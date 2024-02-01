@@ -1,5 +1,5 @@
-from lesson2_binary_trees import TreeNode
-from lesson2_binary_trees import User
+from lesson2_linear_binary import TreeNode
+from lesson2_linear_binary import User
 import random, string
 
 practice_tuple = ((4, 7, (None, 8, 9)), 12, ((6, 10, 11), 13, (10, 15, 18)))
