@@ -17,7 +17,7 @@ Inputs:
 2. sum - an integer as our given sum
 
 Outputs:
-1. result - a list as our continuous subarray that adds to the given sum
+1. a list as our continuous subarray that adds to the given sum
 
 """
 
@@ -43,7 +43,7 @@ t1 = {
         "array": [1, 7, 4, 2, 1, 3, 11, 5],
         "sum": 0
     },
-    "output": -1
+    "output": []
 }
 
 t2 = {
@@ -51,7 +51,7 @@ t2 = {
         "array": [1, 7, 4, 2, 1, 3, 11, 5],
         "sum": 100
     },
-    "output": -1
+    "output": []
 }
 
 t3 = {
@@ -83,7 +83,7 @@ t6 = {
         "array": [],
         "sum": 10
     },
-    "output": -1
+    "output": []
 }
 
 t7 = {
@@ -99,7 +99,7 @@ t8 = {
         "array": [4, 4, 4, 4, 4, 4],
         "sum": 7
     },
-    "output": -1
+    "output": []
 }
 
 tests = [t1, t2, t3, t4, t5, t6, t7, t8]
@@ -107,11 +107,34 @@ tests = [t1, t2, t3, t4, t5, t6, t7, t8]
 
 # STATE CORRECT SOLUTION IN PLAIN ENGLISH
 
+"""
+DYNAMIC PROGRAMMING SOLUTION
+
+
+"""
+
 
 # IMPLEMENT SOLUTION AND TEST -> FIX BUGS
 
+def subarray(array, sum):
+    curr_sum = 0
+    index_map = {}
+    for i, num in enumerate(array):
+        curr_sum += num
+        if curr_sum == sum:
+            return array[0: i+ 1]
+        if curr_sum - sum in index_map:
+            return array[index_map[curr_sum - sum] + 1: i + 1]
+        index_map[curr_sum] = i
+    return []
+
+for test in tests: 
+    print(subarray(test["input"]["array"], test["input"]["sum"]) == test["output"])
+
 
 # ANALYZE ALGORITHM COMPLEXITY AND IDENTIFY INEFFICIENCIES
+    
+"""
+Time complexity is O(N)
 
-
-# OVERCOME INEFFICIENCY. REPEAT 3 - 6
+"""
