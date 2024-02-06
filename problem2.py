@@ -34,55 +34,82 @@ def conversion_steps(string_a, string_b):
 
 """
 
-1. 
-2. 
-3. 
-4. 
-5. 
+1. generic example
+2. another generic example
+3. 1 string thats longer than the other
+4. 1 string thats shorter than the other
+5. 1 empty string and 1 nonempty string
+6. 1 string that is the reverse of another string
+7. 2 strings that are the same
+8. 2 strings that are completely different
 
 """
 
 t1 = {
     "input": {
-        "string_a": "",
-        "string_b": ""
+        "string_a": "intention",
+        "string_b": "execution"
     }, 
-    "output": 
+    "output": 5
 }
 
 t2 = {
     "input": {
-        "string_a": "",
-        "string_b": ""
+        "string_a": "effortless",
+        "string_b": "humorless"
     }, 
-    "output": 
+    "output": 4
 }
 
 t3 = {
     "input": {
-        "string_a": "",
-        "string_b": ""
+        "string_a": "eventually",
+        "string_b": "event"
     }, 
-    "output": 
+    "output": 5
 }
 
 t4 = {
     "input": {
-        "string_a": "",
-        "string_b": ""
+        "string_a": "fact",
+        "string_b": "factoid"
     }, 
-    "output": 
+    "output": 3
 }
 
 t5 = {
     "input": {
-        "string_a": "",
+        "string_a": "molasses",
         "string_b": ""
     }, 
-    "output": 
+    "output": 8
 }
 
-tests = [t1, t2, t3, t4, t5]
+t6 = {
+    "input": {
+        "string_a": "paper",
+        "string_b": "repap"
+    }, 
+    "output": 4
+}
+
+t7 = {
+    "input": {
+        "string_a": "mouse",
+        "string_b": "mouse"
+    }, 
+    "output": 0
+}
+
+t8 = {
+    "input": {
+        "string_a": "statistics",
+        "string_b": "adjacently"
+    }, 
+    "output": 10
+}
+
+tests = [t1, t2, t3, t4, t5, t6, t7, t8]
 
 
 # STATE CORRECT SOLUTION IN PLAIN ENGLISH
