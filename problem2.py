@@ -34,4 +34,67 @@ def conversion_steps(string_a, string_b):
 
 """
 
+1. 
+2. 
+3. 
+4. 
+5. 
+
 """
+
+t1 = {
+    "input": {
+        "string_a": "",
+        "string_b": ""
+    }, 
+    "output": 
+}
+
+t2 = {
+    "input": {
+        "string_a": "",
+        "string_b": ""
+    }, 
+    "output": 
+}
+
+t3 = {
+    "input": {
+        "string_a": "",
+        "string_b": ""
+    }, 
+    "output": 
+}
+
+t4 = {
+    "input": {
+        "string_a": "",
+        "string_b": ""
+    }, 
+    "output": 
+}
+
+t5 = {
+    "input": {
+        "string_a": "",
+        "string_b": ""
+    }, 
+    "output": 
+}
+
+tests = [t1, t2, t3, t4, t5]
+
+
+# STATE CORRECT SOLUTION IN PLAIN ENGLISH
+
+
+# IMPLEMENT SOLUTION AND TEST -> FIX BUGS
+
+
+# ANALYZE ALGORITHM COMPLEXITY AND IDENTIFY INEFFICIENCIES 
+
+
+# APPLY RIGHT TECHNIQUE TO OVERCOME INEFFICIENCY. REPEAT PROCESS.
+
+
+# COME UP WITH CORRECT SOLUTION STATED IN PLAIN ENGLISH
