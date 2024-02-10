@@ -1,3 +1,5 @@
+import numpy as np
+
 """
 PROBLEM
 
@@ -197,17 +199,17 @@ MEMOIZATION
 
 # IMPLEMENT SOLUTION AND TEST -> FIX BUGS
 
-def min_edit_distance2(str1, str2):
+def conversion_steps2(string_a, string_b):
     memo = {}
     def recurse(i1, i2):
         key = (i1, i2)
         if key in memo:
             return memo[key]
-        elif i1 == len(str1):
-            memo[key] = len(str2) - i2
-        elif i2 == len(str2):
-            memo[key] = len(str1) - i1
-        elif str1[i1] == str2[i2]:
+        elif i1 == len(string_a):
+            memo[key] = len(string_b) - i2
+        elif i2 == len(string_b):
+            memo[key] = len(string_a) - i1
+        elif string_a[i1] == string_b[i2]:
             memo[key] = recurse(i1+1, i2+1)
         else:
             memo[key] = 1 + min(recurse(i1, i2+1), 
@@ -219,7 +221,7 @@ def min_edit_distance2(str1, str2):
 # Test
 
 for test in tests:
-    print(min_edit_distance2(test["input"]["string_a"], test["input"]["string_b"]) == test["output"])
+    print(conversion_steps2(test["input"]["string_a"], test["input"]["string_b"]) == test["output"])
 
 
 # ANALYZE ALGORITHM COMPLEXITY AND IDENTIFY INEFFICIENCIES 
@@ -265,6 +267,52 @@ DYNAMIC PROGRAMMING
 
 
 # IMPLEMENT SOLUTION AND TEST -> FIX BUGS
+
+
+
+def conversion_steps3(string_a, string_b):
+    # Get the lengths of the input strings
+    m = len(string_a)
+    n = len(string_b)
+     
+    # Initialize a list to store the current row
+    curr = [0] * (n + 1)
+     
+    # Initialize the first row with values from 0 to n
+    for j in range(n + 1):
+        curr[j] = j
+     
+    # Initialize a variable to store the previous value
+    previous = 0
+     
+    # Loop through the rows of the dynamic programming matrix
+    for i in range(1, m + 1):
+        # Store the current value at the beginning of the row
+        previous = curr[0]
+        curr[0] = i
+         
+        # Loop through the columns of the dynamic programming matrix
+        for j in range(1, n + 1):
+            # Store the current value in a temporary variable
+            temp = curr[j]
+             
+            # Check if the characters at the current positions in str1 and str2 are the same
+            if string_a[i - 1] == string_b[j - 1]:
+                curr[j] = previous
+            else:
+                # Update the current cell with the minimum of the three adjacent cells
+                curr[j] = 1 + min(previous, curr[j - 1], curr[j])
+             
+            # Update the previous variable with the temporary value
+            previous = temp
+     
+    # The value in the last cell represents the minimum number of operations
+    return curr[n]
+
+# Test
+
+for test in tests:
+    print(conversion_steps3(test["input"]["string_a"], test["input"]["string_b"]) == test["output"])
 
 
 # ANALYZE ALGORITHM COMPLEXITY AND IDENTIFY INEFFICIENCIES 
