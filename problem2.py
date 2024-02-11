@@ -194,6 +194,8 @@ We can improve this using "memoization".
 """
 MEMOIZATION
 
+
+
 """
 
 
@@ -263,17 +265,27 @@ n1 and n2 are the lengths of our sequences.
 """
 DYNAMIC PROGRAMMING
 
+1. Get the lengths of the input strings
+2. Initialize a list to store the current row
+3. Initialize the first row with values from 0 to n
+4. Initialize a variable to store the previous value
+5. Loop through the rows of the dynamic programming matrix
+5a. Store the current value at the beginning of the row
+5b. Loop through the columns of the dynamic programming matrix
+5b.a. Store the current value in a temporary variable
+5b.b. Check if the characters at the current positions in str1 and str2 are the same
+5b.b.a. Update the current cell with the minimum of the three adjacent cells
+5b.c. Update the previous variable with the temporary value
+6. The value in the last cell represents the minimum number of operations
+
 """
 
 
 # IMPLEMENT SOLUTION AND TEST -> FIX BUGS
 
-
-
 def conversion_steps3(string_a, string_b):
     # Get the lengths of the input strings
-    m = len(string_a)
-    n = len(string_b)
+    m, n = len(string_a), len(string_b)
      
     # Initialize a list to store the current row
     curr = [0] * (n + 1)
